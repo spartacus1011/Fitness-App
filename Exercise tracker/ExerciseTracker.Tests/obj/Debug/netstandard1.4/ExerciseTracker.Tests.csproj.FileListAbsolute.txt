@@ -1,0 +1,8 @@
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\bin\Debug\netstandard1.4\ExerciseTracker.Tests.deps.json
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\bin\Debug\netstandard1.4\ExerciseTracker.Tests.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\obj\Debug\netstandard1.4\ExerciseTracker.Tests.csprojResolveAssemblyReference.cache
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\obj\Debug\netstandard1.4\ExerciseTracker.Tests.csproj.CoreCompileInputs.cache
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\obj\Debug\netstandard1.4\ExerciseTracker.Tests.AssemblyInfo.cs
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\bin\Debug\netstandard1.4\ExerciseTracker.Tests.pdb
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\obj\Debug\netstandard1.4\ExerciseTracker.Tests.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\obj\Debug\netstandard1.4\ExerciseTracker.Tests.pdb

@@ -1,0 +1,33 @@
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\Exercise tracker.exe.config
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\Exercise tracker.exe
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\Exercise tracker.pdb
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\MvvmDialogs.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.AvalonDock.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.DataGrid.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.Toolkit.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\MvvmDialogs.xml
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.csprojResolveAssemblyReference.cache
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\MainWindow.g.cs
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\App.g.cs
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker_MarkupCompile.cache
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker_MarkupCompile.lref
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\MainWindow.baml
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.g.resources
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise_tracker.Properties.Resources.resources
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.csproj.GenerateResource.Cache
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.csproj.CoreCompileInputs.cache
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.exe
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.pdb
