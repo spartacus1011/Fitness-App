@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\App.xaml
-11892971807
+5-1291249310
 
-8-1710087892
+171467072900
 201170711279
-Views\MainWindow.xaml;
+Views\CreateExerciseView.xaml;Views\EditRosterView.xaml;Views\ExerciseListBoxItemView.xaml;Views\ExerciseRosterListViewItem.xaml;Views\MainWindow.xaml;
 
 False
 

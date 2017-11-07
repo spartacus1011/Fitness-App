@@ -1,0 +1,60 @@
+﻿<Window x:Class="Exercise_tracker.Views.CreateExerciseView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:local="clr-namespace:Exercise_tracker.Views"
+        xmlns:viewModels="clr-namespace:Exercise_tracker.ViewModels"
+        mc:Ignorable="d"
+        Title="CreateExerciseView" Height="300" Width="300"
+        md:DialogServiceViews.IsRegistered="True"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:CreateExerciseViewModel}}"
+        Background="#FF1E1E1E"
+        >
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+
+    <StackPanel>
+        <TextBlock Text="Create a new exercise" HorizontalAlignment="Center" Foreground="White" FontFamily="Calibri" FontSize="28" Margin="10,10"/>
+        <wpfTool:WatermarkTextBox Text="{Binding ExerciseNameToAdd}" Watermark="Exercise name" Margin="10,5" FontSize="16" />
+        <Grid Margin="10,5">
+            <TextBlock Text="Exercise Type" Foreground="White"/>
+            <ComboBox SelectedItem="{Binding SelectedExerciseType}" ItemsSource="{Binding ExerciseTypeValues}" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <!-- made a combo box for now so that if need be more stuff can be added later-->
+        </Grid>
+        <Grid Visibility="{Binding IsRepetitions, Converter={StaticResource BoolToVis}}" Margin="10,5">
+            <TextBlock Text="Number of Reps" Foreground="White"/>
+            <wpfTool:IntegerUpDown Value="{Binding Repetitions}" Maximum="500" Minimum="1" Width="50" HorizontalAlignment="Right"/>
+        </Grid>
+        <Grid Visibility="{Binding IsTimed, Converter={StaticResource BoolToVis}}" Margin="10,5">
+            <ComboBox SelectedItem="{Binding SelectedExerciseTimeUnits}" ItemsSource="{Binding ExerciseTimeUnitValues}" Text="Time" HorizontalAlignment="Left" Width="100"/>
+            <wpfTool:IntegerUpDown Value="{Binding ExerciseTime}" Width="50" HorizontalAlignment="Right"/>
+        </Grid>
+        <Grid Visibility="{Binding IsSets, Converter={StaticResource BoolToVis}}" Margin="10,5">
+            <TextBlock Text="Number of Sets" Foreground="White"/>
+            <wpfTool:IntegerUpDown Value="{Binding SetsCount}" Width="50" HorizontalAlignment="Right"/>
+        </Grid>
+        <Grid Visibility="{Binding IsSets, Converter={StaticResource BoolToVis}}" Margin="10,5">
+            <CheckBox IsChecked="{Binding IsUsingRestTime}" Content="Add Rest Time(Seconds)" Foreground="White"/>
+            <ComboBox SelectedItem="{Binding RestTime}" ItemsSource="{Binding ExerciseRestTimeValues}" Visibility="{Binding IsUsingRestTime, Converter={StaticResource BoolToVis}}" Width="100" HorizontalAlignment="Right"/>
+        </Grid>
+        <Grid Margin="10,5">
+            <TextBlock Text="Recurrence" Foreground="White"/>
+            <ComboBox SelectedItem="{Binding SelectedExerciseRecurrence}" ItemsSource="{Binding ExerciseRecurrenceValues}" Width="100" HorizontalAlignment="Right"/>
+        </Grid>
+        <Grid Margin="10,5">
+            <CheckBox IsChecked="{Binding IsUsedInRoster}" Content="Add to Roster straight away" HorizontalAlignment="Center" Foreground="White" />
+        </Grid>
+
+        <Grid>
+            <Button Command="{Binding CloseDialogTrueCommand}" Content="Create" Width="60" Height="25" HorizontalAlignment="Right" Margin="25,15"></Button>
+            <Button  Content="Cancel" IsCancel="True" Width="60" Height="25" HorizontalAlignment="Left" Margin="25,15"></Button>
+            <!-- no command binding needed and it closes automatically. MAAAAGIC-->
+        </Grid>
+    </StackPanel>
+
+</Window>

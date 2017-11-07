@@ -31,3 +31,12 @@ D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Deb
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.csproj.CoreCompileInputs.cache
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.exe
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.pdb
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseRosterListViewItem.g.cs
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseRosterListViewItem.baml
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\CreateExerciseView.g.cs
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\EditRosterView.g.cs
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\CreateExerciseView.baml
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\EditRosterView.baml
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseListBoxItemView.g.cs
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseListBoxItemView.baml

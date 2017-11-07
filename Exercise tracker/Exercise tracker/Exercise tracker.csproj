@@ -75,6 +75,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\CreateExerciseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditRosterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExerciseListBoxItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExerciseRosterListViewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,8 +100,25 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\ExerciseItem.cs" />
+    <Compile Include="Helpers\DelegateComand.cs" />
+    <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
+    <Compile Include="ViewModels\CreateExerciseViewModel.cs" />
+    <Compile Include="ViewModels\EditRosterViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\CreateExerciseView.xaml.cs">
+      <DependentUpon>CreateExerciseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditRosterView.xaml.cs">
+      <DependentUpon>EditRosterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExerciseListBoxItemView.xaml.cs">
+      <DependentUpon>ExerciseListBoxItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExerciseRosterListViewItem.xaml.cs">
+      <DependentUpon>ExerciseRosterListViewItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -118,8 +151,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

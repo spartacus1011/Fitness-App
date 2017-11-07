@@ -1,0 +1,36 @@
+﻿<Window x:Class="Exercise_tracker.Views.EditRosterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:local="clr-namespace:Exercise_tracker.Views"
+        xmlns:viewModels="clr-namespace:Exercise_tracker.ViewModels"
+        xmlns:views="clr-namespace:Exercise_tracker.Views"
+        mc:Ignorable="d"
+        Title="Edit Roster" Height="400" Width="300"
+        md:DialogServiceViews.IsRegistered="True"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:EditRosterViewModel}}"
+        Background="#FF1E1E1E">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+
+    <DockPanel>
+        <TextBlock Text="Add a new exercise" HorizontalAlignment="Center" DockPanel.Dock="Top" Foreground="White" FontFamily="Calibri" FontSize="28" Margin="10,10"/>
+        <ListBox Name="AddToRosterListBox" ItemsSource="{Binding AllExerciseItemsToAdd}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="auto" DockPanel.Dock="Bottom" Background="#FF2D2D30">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <views:ExerciseRosterListViewItem/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+
+</Window>

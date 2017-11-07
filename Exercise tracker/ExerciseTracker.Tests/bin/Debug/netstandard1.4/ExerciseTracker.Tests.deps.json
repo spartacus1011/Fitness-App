@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v1.4/",
-    "signature": "2e0ef96ce2fbb268bc6578c31a1f7e0518660814"
+    "signature": "ce1b28ba713fa9c220de11ae125cab6e71b08543"
   },
   "compilationOptions": {},
   "targets": {
@@ -12,7 +12,7 @@
           "Moq": "4.7.145",
           "NETStandard.Library": "1.6.1",
           "NUnit": "3.8.1",
-          "NUnitTestAdapter": "2.1.1"
+          "NUnit3TestAdapter": "3.9.0"
         },
         "runtime": {
           "ExerciseTracker.Tests.dll": {}
@@ -111,7 +111,7 @@
           "lib/netstandard1.3/nunit.framework.dll": {}
         }
       },
-      "nunittestadapter/2.1.1": {},
+      "nunit3testadapter/3.9.0": {},
       "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.0": {},
       "runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.0": {},
       "runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl/4.3.0": {},
@@ -826,12 +826,12 @@
       "path": "nunit/3.8.1",
       "hashPath": "nunit.3.8.1.nupkg.sha512"
     },
-    "nunittestadapter/2.1.1": {
+    "nunit3testadapter/3.9.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jL9tOhRbLugacrDg0KAh3nvHinXnnVNkgiHwmKHtXk61zhpz3UvHzFOdZTfkUz7xf+VRuId1Ns5/nvHyQWaoqA==",
-      "path": "nunittestadapter/2.1.1",
-      "hashPath": "nunittestadapter.2.1.1.nupkg.sha512"
+      "sha512": "sha512-mtJZ7ejIVZliD0NI0HA3z1VgvBQVmwbnMOF2Lvg7j0MBJYXFOdBgNZcNZHFa8/lbgeckGxV4H93e+njHRbBtpQ==",
+      "path": "nunit3testadapter/3.9.0",
+      "hashPath": "nunit3testadapter.3.9.0.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.0": {
       "type": "package",

@@ -1,0 +1,18 @@
+﻿<ArrayOfExerciseItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ExerciseItem>
+    <ExerciseName>Test1</ExerciseName>
+    <Exercisetype>SingleReps</Exercisetype>
+    <RequiredReps>203</RequiredReps>
+    <RequiredTime>0</RequiredTime>
+    <RequiredSets>0</RequiredSets>
+    <RequiredSetsCount>0</RequiredSetsCount>
+    <ExerciseTimeUnits>Seconds</ExerciseTimeUnits>
+    <IsUsingRestTime>false</IsUsingRestTime>
+    <RestTime>Seconds30</RestTime>
+    <IsUsedInRoster>true</IsUsedInRoster>
+    <TotalCompletedCount>0</TotalCompletedCount>
+    <IsOneTimeExercise>false</IsOneTimeExercise>
+    <DueTime>2017-11-07T14:14:15.978481+11:00</DueTime>
+    <ExerciseRecurrence>Daily</ExerciseRecurrence>
+  </ExerciseItem>
+</ArrayOfExerciseItem>

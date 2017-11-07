@@ -3,11 +3,11 @@
 namespace Exercise_tracker.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EditRoster.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EditRosterView : Window
     {
-        public MainWindow()
+        public EditRosterView()
         {
             InitializeComponent();
         }

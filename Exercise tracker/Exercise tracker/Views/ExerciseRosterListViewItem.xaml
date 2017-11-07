@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Exercise_tracker.Views.ExerciseRosterListViewItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Exercise_tracker.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+
+    <Grid Width="auto">
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Background" Value="#FF54B866"></Setter>
+                <!-- Green-->
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsUsedInRoster}"  Value="false">
+                        <Setter Property="Background" Value="#FF666666"></Setter>
+                        <!-- Grey-->
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+
+        <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,0"  Height="30" Width="30" Command="{Binding ToggleAddToRosterCommand}"/>
+        <TextBlock Text="{Binding RequiredSetsCount, StringFormat={}{0} Sets}" Visibility="{Binding IsSets, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Left" VerticalAlignment="Center"  TextWrapping="Wrap" Margin="70,0,0,0" Foreground="White" />
+        <TextBlock Text="{Binding ExerciseName}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" TextWrapping="Wrap"  FontSize="25" Foreground="White" FontFamily="Calibri" />
+        <TextBlock Text="{Binding ShownCount}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,58,0,10" TextWrapping="Wrap"  FontSize="20" Foreground="White" FontFamily="Calibri"/>
+
+    </Grid>
+
+</UserControl>

@@ -128,7 +128,7 @@
           "lib/netstandard1.3/nunit.framework.dll": {}
         }
       },
-      "NUnitTestAdapter/2.1.1": {
+      "NUnit3TestAdapter/3.9.0": {
         "type": "package"
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -1320,22 +1320,26 @@
         "nunit.nuspec"
       ]
     },
-    "NUnitTestAdapter/2.1.1": {
-      "sha512": "jL9tOhRbLugacrDg0KAh3nvHinXnnVNkgiHwmKHtXk61zhpz3UvHzFOdZTfkUz7xf+VRuId1Ns5/nvHyQWaoqA==",
+    "NUnit3TestAdapter/3.9.0": {
+      "sha512": "mtJZ7ejIVZliD0NI0HA3z1VgvBQVmwbnMOF2Lvg7j0MBJYXFOdBgNZcNZHFa8/lbgeckGxV4H93e+njHRbBtpQ==",
       "type": "package",
-      "path": "nunittestadapter/2.1.1",
+      "path": "nunit3testadapter/3.9.0",
       "files": [
         "LICENSE.txt",
-        "nunittestadapter.2.1.1.nupkg.sha512",
-        "nunittestadapter.nuspec",
-        "tools/Mono.Cecil.Mdb.dll",
-        "tools/Mono.Cecil.Pdb.dll",
-        "tools/Mono.Cecil.Rocks.dll",
-        "tools/Mono.Cecil.dll",
-        "tools/NUnit.VisualStudio.TestAdapter.dll",
-        "tools/nunit.core.dll",
-        "tools/nunit.core.interfaces.dll",
-        "tools/nunit.util.dll"
+        "build/net35/Mono.Cecil.Mdb.dll",
+        "build/net35/Mono.Cecil.Pdb.dll",
+        "build/net35/Mono.Cecil.Rocks.dll",
+        "build/net35/Mono.Cecil.dll",
+        "build/net35/NUnit3.TestAdapter.dll",
+        "build/net35/NUnit3TestAdapter.props",
+        "build/net35/nunit.engine.api.dll",
+        "build/net35/nunit.engine.dll",
+        "build/netcoreapp1.0/Mono.Cecil.dll",
+        "build/netcoreapp1.0/NUnit3.TestAdapter.dll",
+        "build/netcoreapp1.0/NUnit3TestAdapter.props",
+        "build/netcoreapp1.0/nunit.engine.netstandard.dll",
+        "nunit3testadapter.3.9.0.nupkg.sha512",
+        "nunit3testadapter.nuspec"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -4666,7 +4670,7 @@
       "Moq >= 4.7.145",
       "NETStandard.Library >= 1.6.1",
       "NUnit >= 3.8.1",
-      "NUnitTestAdapter >= 2.1.1"
+      "NUnit3TestAdapter >= 3.9.0"
     ]
   },
   "packageFolders": {
@@ -4704,6 +4708,10 @@
     "frameworks": {
       "netstandard1.4": {
         "dependencies": {
+          "NUnit3TestAdapter": {
+            "target": "Package",
+            "version": "3.9.0"
+          },
           "NETStandard.Library": {
             "target": "Package",
             "version": "1.6.1",
@@ -4716,10 +4724,6 @@
           "NUnit": {
             "target": "Package",
             "version": "3.8.1"
-          },
-          "NUnitTestAdapter": {
-            "target": "Package",
-            "version": "2.1.1"
           }
         }
       }
