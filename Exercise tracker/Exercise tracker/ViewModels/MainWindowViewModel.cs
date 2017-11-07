@@ -20,6 +20,9 @@ namespace Exercise_tracker.ViewModels
         public List<ExerciseItem> AllExerciseItems = new List<ExerciseItem>();
         public ObservableCollection<ExerciseItem> ExerciseItemsToDo { get { return exerciseItemsToDo; } }
 
+        public ICommand ShowCreateExerciseCommand { get { return new DelegateCommand(ShowCreateExerciseDialog); } }
+        public ICommand ShowEditRosterCommand { get { return new DelegateCommand(ShowEditRosterDialog); } }
+
         private readonly string rootProgramDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly string allExercisesXmlFilename = "AllExerciseItemsList.xml";
         private readonly ObservableCollection<ExerciseItem> exerciseItemsToDo = new ObservableCollection<ExerciseItem>(); //this works. but i dont think that it is the right way to do things
@@ -78,8 +81,7 @@ namespace Exercise_tracker.ViewModels
         }
 
 
-        #region Commands
-        public ICommand ShowCreateExerciseCommand { get { return new DelegateCommand(ShowCreateExerciseDialog); } }
+        #region CommandFunctions
         private void ShowCreateExerciseDialog()
         {
             var dialogViewModel = new CreateExerciseViewModel();
@@ -102,13 +104,11 @@ namespace Exercise_tracker.ViewModels
                 }
             }
         }
-        public ICommand ShowAddExerciseCommand { get { return new DelegateCommand(ShowAddExerciseDialog); } }
-        private void ShowAddExerciseDialog()
+        
+        private void ShowEditRosterDialog()
         {
             var dialogViewModel = new EditRosterViewModel(AllExerciseItems);
-
             bool? success = dialogService.ShowDialog<EditRosterView>(this, dialogViewModel);
-
             List<ExerciseItem> temp = exerciseItemsToDo.ToList();
 
             ExerciseItemsToDo.Clear(); //recreate list regardless
@@ -127,7 +127,6 @@ namespace Exercise_tracker.ViewModels
 
             }
         }
-
         #endregion
 
 
@@ -180,7 +179,5 @@ namespace Exercise_tracker.ViewModels
             RebuildList();
         }
         #endregion
-
-
     }
 }

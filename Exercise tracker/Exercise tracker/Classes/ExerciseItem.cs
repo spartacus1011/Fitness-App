@@ -35,7 +35,6 @@ namespace Exercise_tracker.Classes
     public bool Late { get { return DueTime.Day < DateTime.Now.Day; } }
     public bool Early { get { return DueTime.Day > DateTime.Now.Day; } }
 
-
     public string DueTimeAsString
     {
         get

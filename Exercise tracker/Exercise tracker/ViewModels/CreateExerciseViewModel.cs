@@ -118,7 +118,7 @@ namespace Exercise_tracker.ViewModels
         public CreateExerciseViewModel()
         {
             itemToAdd = new ExerciseItem();
-            IsUsedInRoster = true; //Testing just for now. or can leave it to default as on
+            IsUsedInRoster = true;
         }
 
         private void RaiseAllTheEvents()
