@@ -26,7 +26,7 @@ namespace Exercise_tracker.Classes
     public int RequiredSetsCount { get; set; }
     public ExerciseTimeUnitsEnum ExerciseTimeUnits { get; set; }
     public bool IsUsingRestTime { get; set; }
-    public ExerciseRestTimeEnum RestTime { get; set; } //make this a timespan
+    public ExerciseRestTimeEnum RestTime { get; set; } //make this a timespan 
     public bool IsUsedInRoster { get; set; }
     public int TotalCompletedCount { get; set; } //this is the total amount of times this exercise has been done (To be replaced by a proper history thing)
     public bool IsOneTimeExercise { get; set; } //use this to signify that it was a one time exercise. these guys probably wont be shown in the to do list rather a history list. Until history list is done, this will just add 1 to the total count
