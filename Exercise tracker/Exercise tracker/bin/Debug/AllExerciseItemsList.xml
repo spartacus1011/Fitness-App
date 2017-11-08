@@ -2,7 +2,7 @@
   <ExerciseItem>
     <ExerciseName>Test1</ExerciseName>
     <Exercisetype>SingleReps</Exercisetype>
-    <RequiredReps>5</RequiredReps>
+    <RequiredReps>0</RequiredReps>
     <RequiredTime>0</RequiredTime>
     <RequiredSets>0</RequiredSets>
     <RequiredSetsCount>0</RequiredSetsCount>
@@ -12,7 +12,7 @@
     <IsUsedInRoster>true</IsUsedInRoster>
     <TotalCompletedCount>0</TotalCompletedCount>
     <IsOneTimeExercise>false</IsOneTimeExercise>
-    <DueTime>2017-11-07T14:41:13.7208309+11:00</DueTime>
+    <DueTime>2017-11-08T22:11:23.5338608+11:00</DueTime>
     <ExerciseRecurrence>Daily</ExerciseRecurrence>
   </ExerciseItem>
 </ArrayOfExerciseItem>

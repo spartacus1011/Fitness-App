@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace Exercise_tracker.Classes
 {
-    public class ExerciseItem : ObservableObject
+    public class ExerciseItem: ObservableObject
     {
         public event EventHandler MarkExerciseCompletedChanged;
         public event EventHandler DeleteExercise;
@@ -16,8 +16,7 @@ namespace Exercise_tracker.Classes
         public ICommand DeleteThisExerciseCommand { get { return new DelegateCommand(DeleteThisExerciseItem); } }
         public ICommand EditThisExerciseCommand { get { return new DelegateCommand(EditThisExerciseItem); } }
 
-        public string GUIDID { get { return guidid; } } //This id will mainly be used to link the exercise item back to its history component counterpart
-        private readonly string guidid;
+        public string GUIDID { get; set; } //This id will mainly be used to link the exercise item back to its history component counterpart
         public string ExerciseName { get; set; }
         public ExercisetypeEnum Exercisetype { get; set; }
         public bool IsRepetitions { get { return Exercisetype == ExercisetypeEnum.SingleReps || Exercisetype == ExercisetypeEnum.NormalSets; } } //might be worth investing in an enum to bool converter for wpf
@@ -97,7 +96,8 @@ namespace Exercise_tracker.Classes
         public ExerciseItem()
         {
             DueTime = DateTime.Now;
-            guidid = new Guid().ToString();
+            Guid g = Guid.NewGuid();
+            GUIDID = g.ToString();
         }
 
         private void MarkExerciseCompleted()

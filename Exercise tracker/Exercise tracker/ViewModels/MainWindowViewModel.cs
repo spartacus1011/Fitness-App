@@ -18,20 +18,21 @@ namespace Exercise_tracker.ViewModels
     {
         public static IDialogService dialogService;
         public List<ExerciseItem> AllExerciseItems = new List<ExerciseItem>();
-        public ObservableCollection<ExerciseItem> ExerciseItemsToDo { get { return exerciseItemsToDo; } }
+        public ObservableCollection<ExerciseItem> ExerciseItemsToDo { get; set;}
 
         public ICommand ShowCreateExerciseCommand { get { return new DelegateCommand(ShowCreateExerciseDialog); } }
         public ICommand ShowEditRosterCommand { get { return new DelegateCommand(ShowEditRosterDialog); } }
 
         private readonly string rootProgramDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly string allExercisesXmlFilename = "AllExerciseItemsList.xml";
-        private readonly ObservableCollection<ExerciseItem> exerciseItemsToDo = new ObservableCollection<ExerciseItem>(); //this works. but i dont think that it is the right way to do things
+
         private readonly DispatcherTimer updateTimer = new DispatcherTimer();
 
         public MainWindowViewModel()
         {
             dialogService = new DialogService();
             AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
+            ExerciseItemsToDo = new ObservableCollection<ExerciseItem>();
 
             updateTimer.Tick += OnUpdateTimerTick;
             updateTimer.Interval = new TimeSpan(0, 1, 0); //every 1 minute
@@ -42,11 +43,11 @@ namespace Exercise_tracker.ViewModels
 
         private void RebuildList()
         {
-            List<ExerciseItem> temp = exerciseItemsToDo.OrderBy(x => x.DueTime).ToList();
-            exerciseItemsToDo.Clear();
+            List<ExerciseItem> temp = ExerciseItemsToDo.OrderBy(x => x.DueTime).ToList();
+            ExerciseItemsToDo.Clear();
             foreach (var item in temp)
             {
-                exerciseItemsToDo.Add(item);
+                ExerciseItemsToDo.Add(item);
             }
         }
 
@@ -67,7 +68,7 @@ namespace Exercise_tracker.ViewModels
                     item.DeleteExercise += OnDeleteExercise;
                     item.EditExericse += OnEditExercise;
                     if (item.IsUsedInRoster)
-                        exerciseItemsToDo.Add(item);
+                        ExerciseItemsToDo.Add(item);
                 }
                 OnUpdateTimerTick(null, null); //first time fire to update everything on load
             }
@@ -99,7 +100,7 @@ namespace Exercise_tracker.ViewModels
                     dialogViewModel.ItemToAdd.EditExericse += OnEditExercise;
                     dialogViewModel.ItemToAdd.DeleteExercise += OnDeleteExercise;
                     dialogViewModel.ItemToAdd.RequiredSetsCount = dialogViewModel.ItemToAdd.RequiredSets; //set the sets. dont really need an if statement here doesnt matter if 0=0
-                    exerciseItemsToDo.Add(dialogViewModel.ItemToAdd);
+                    ExerciseItemsToDo.Add(dialogViewModel.ItemToAdd);
                     OnUpdateTimerTick(null, null);
                 }
             }
@@ -108,23 +109,32 @@ namespace Exercise_tracker.ViewModels
         private void ShowEditRosterDialog()
         {
             var dialogViewModel = new EditRosterViewModel(AllExerciseItems);
+            List<ExerciseItem> temp = ExerciseItemsToDo.ToList();
+
             bool? success = dialogService.ShowDialog<EditRosterView>(this, dialogViewModel);
-            List<ExerciseItem> temp = exerciseItemsToDo.ToList();
-
-            ExerciseItemsToDo.Clear(); //recreate list regardless
-            foreach (var item in dialogViewModel.AllExerciseItemsToAdd.Where(x => x.IsUsedInRoster))
+            ExerciseItemsToDo.Clear();
+            if (success == true)
             {
-                if (!temp.Contains(item))
+                
+                foreach (var item in dialogViewModel.RosterItems.Where(x => x.IsUsedInRoster))
                 {
-                    item.DueTime = DateTime.Now;
+                    if (!temp.Contains(item))
+                    {
+                        item.DueTime = DateTime.Now;
+                    }
+                    ExerciseItemsToDo.Add(item);
                 }
-                ExerciseItemsToDo.Add(item);
+
+                RebuildList();
             }
-
-            RebuildList();
-            if (success == true) //Not really actually using success
+            else //revert it to the way it was
             {
+                foreach (ExerciseItem item in temp)
+                {
+                    ExerciseItemsToDo.Add(item);
+                }
 
+                RebuildList();
             }
         }
         #endregion
@@ -136,16 +146,15 @@ namespace Exercise_tracker.ViewModels
             SaveExerciseList();
         }
 
-        void OnMarkExerciseCompletedChanged(object sender, EventArgs e) //these events have to be public for now for the test enviroment so that they can get properly subscribed to when we create the exercise
+        void OnMarkExerciseCompletedChanged(object sender, EventArgs e)
         {
             RebuildList();
-            //display short message of yes or no confirmation
         }
 
         void OnDeleteExercise(object sender, EventArgs e)
         {
             ExerciseItem itemToDelete = sender as ExerciseItem;
-            exerciseItemsToDo.Remove(itemToDelete);
+            ExerciseItemsToDo.Remove(itemToDelete);
             AllExerciseItems.Remove(itemToDelete);
             RebuildList();
         }

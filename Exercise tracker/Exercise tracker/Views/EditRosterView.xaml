@@ -8,7 +8,8 @@
         xmlns:viewModels="clr-namespace:Exercise_tracker.ViewModels"
         xmlns:views="clr-namespace:Exercise_tracker.Views"
         mc:Ignorable="d"
-        Title="Edit Roster" Height="400" Width="300"
+        Title="Edit Roster" Height="500" Width="400"
+        MinHeight="500" MinWidth="400"
         md:DialogServiceViews.IsRegistered="True"
         d:DataContext="{d:DesignInstance {x:Type viewModels:EditRosterViewModel}}"
         Background="#FF1E1E1E">
@@ -19,7 +20,7 @@
 
     <DockPanel>
         <TextBlock Text="Add a new exercise" HorizontalAlignment="Center" DockPanel.Dock="Top" Foreground="White" FontFamily="Calibri" FontSize="28" Margin="10,10"/>
-        <ListBox Name="AddToRosterListBox" ItemsSource="{Binding AllExerciseItemsToAdd}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="auto" DockPanel.Dock="Bottom" Background="#FF2D2D30">
+        <ListBox Name="AddToRosterListBox" ItemsSource="{Binding RosterItems}" Margin="2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="auto" Height="350" DockPanel.Dock="Top" Background="#FF2D2D30">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -31,6 +32,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Grid DockPanel.Dock="Bottom">
+            <Button Command="{Binding CloseDialogTrueCommand}" Content="Accept" Margin="10,10" HorizontalAlignment="Left" Width="100" Height="40" />
+            <Button IsCancel="True" Content="Cancel" Margin="10,10" HorizontalAlignment="Right" Width="100" Height="40" />
+        </Grid>
     </DockPanel>
 
 </Window>

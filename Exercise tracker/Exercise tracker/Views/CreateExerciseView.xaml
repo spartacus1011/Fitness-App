@@ -52,7 +52,7 @@
 
         <Grid>
             <Button Command="{Binding CloseDialogTrueCommand}" Content="Create" Width="60" Height="25" HorizontalAlignment="Right" Margin="25,15"></Button>
-            <Button  Content="Cancel" IsCancel="True" Width="60" Height="25" HorizontalAlignment="Left" Margin="25,15"></Button>
+            <Button Content="Cancel" IsCancel="True" Width="60" Height="25" HorizontalAlignment="Left" Margin="25,15"></Button>
             <!-- no command binding needed and it closes automatically. MAAAAGIC-->
         </Grid>
     </StackPanel>

@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\
 Exercise_tracker
 none
 false
 DEBUG;TRACE
-C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\App.xaml
+D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\App.xaml
 5-1291249310
-7-439125107
-18-1353664277
-24-601006639
+7-1498871663
+20400323764
+30-388278686
 Views\CreateExerciseView.xaml;Views\EditRosterView.xaml;Views\ExerciseListBoxItemView.xaml;Views\ExerciseRosterListViewItem.xaml;Views\MainWindow.xaml;
 
 False

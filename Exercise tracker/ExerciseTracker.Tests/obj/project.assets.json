@@ -421,6 +421,9 @@
           "ref/netstandard1.3/System.Console.dll": {}
         }
       },
+      "System.Data.SQLite/1.0.106": {
+        "type": "package"
+      },
       "System.Diagnostics.Debug/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1949,6 +1952,15 @@
         "ref/xamarinwatchos10/_._",
         "system.console.4.3.0.nupkg.sha512",
         "system.console.nuspec"
+      ]
+    },
+    "System.Data.SQLite/1.0.106": {
+      "sha512": "7BLZMo2NrV01kJIEdDAgCdDs3f0DPkd1gmAjURo0ziN00q+KWWX2S5RoqTQm0LbbBUe2ycUSiiDYIIPip56+kw==",
+      "type": "package",
+      "path": "system.data.sqlite/1.0.106",
+      "files": [
+        "system.data.sqlite.1.0.106.nupkg.sha512",
+        "system.data.sqlite.nuspec"
       ]
     },
     "System.Diagnostics.Debug/4.3.0": {
@@ -4670,11 +4682,12 @@
       "Moq >= 4.7.145",
       "NETStandard.Library >= 1.6.1",
       "NUnit >= 3.8.1",
-      "NUnit3TestAdapter >= 3.9.0"
+      "NUnit3TestAdapter >= 3.9.0",
+      "System.Data.SQLite >= 1.0.106"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rforzisi\\.nuget\\packages\\": {}
+    "C:\\Users\\Ross\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -4682,14 +4695,14 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\rforzisi\\Documents\\Test Projects\\ExerciseTracker\\Exercise tracker\\ExerciseTracker.Tests\\ExerciseTracker.Tests.csproj",
+      "projectUniqueName": "D:\\SourceTreeProjects\\Exercise tracker\\Exercise tracker\\ExerciseTracker.Tests\\ExerciseTracker.Tests.csproj",
       "projectName": "ExerciseTracker.Tests",
-      "projectPath": "C:\\Users\\rforzisi\\Documents\\Test Projects\\ExerciseTracker\\Exercise tracker\\ExerciseTracker.Tests\\ExerciseTracker.Tests.csproj",
-      "packagesPath": "C:\\Users\\rforzisi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rforzisi\\Documents\\Test Projects\\ExerciseTracker\\Exercise tracker\\ExerciseTracker.Tests\\obj\\",
+      "projectPath": "D:\\SourceTreeProjects\\Exercise tracker\\Exercise tracker\\ExerciseTracker.Tests\\ExerciseTracker.Tests.csproj",
+      "packagesPath": "C:\\Users\\Ross\\.nuget\\packages\\",
+      "outputPath": "D:\\SourceTreeProjects\\Exercise tracker\\Exercise tracker\\ExerciseTracker.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\rforzisi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ross\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4711,6 +4724,10 @@
           "NUnit3TestAdapter": {
             "target": "Package",
             "version": "3.9.0"
+          },
+          "System.Data.SQLite": {
+            "target": "Package",
+            "version": "1.0.106"
           },
           "NETStandard.Library": {
             "target": "Package",

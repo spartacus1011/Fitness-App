@@ -3,20 +3,22 @@ using System.Collections.ObjectModel;
 using MvvmDialogs;
 using Exercise_tracker.Helpers;
 using Exercise_tracker.Classes;
+using System.Windows.Input;
 
 namespace Exercise_tracker.ViewModels
 {
     class EditRosterViewModel : ObservableObject, IModalDialogViewModel
     {
-        public ObservableCollection<ExerciseItem> AllExerciseItemsToAdd { get { return _allExerciseItems; } }
-
-        private readonly ObservableCollection<ExerciseItem> _allExerciseItems = new ObservableCollection<ExerciseItem>();
+        public ObservableCollection<ExerciseItem> RosterItems { get; set; }
+        public ICommand CloseDialogTrueCommand { get { return new DelegateCommand(CloseDialogTrue); } }
 
         public EditRosterViewModel(List<ExerciseItem> passedExerciseItems)
         {
+            RosterItems = new ObservableCollection<ExerciseItem>();
+
             foreach (var item in passedExerciseItems)
             {
-                AllExerciseItemsToAdd.Add(item);
+                RosterItems.Add(item);
             }
         }
 
@@ -29,6 +31,11 @@ namespace Exercise_tracker.ViewModels
                 dialogResult = value;
                 RaisePropertyChangedEvent("DialogResult");
             }
+        }
+
+        private void CloseDialogTrue()
+        {
+            DialogResult = true;
         }
     }
 }
