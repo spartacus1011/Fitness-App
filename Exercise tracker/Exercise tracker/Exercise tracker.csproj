@@ -112,6 +112,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\ExerciseHistoryItem.cs" />
     <Compile Include="Classes\ExerciseItem.cs" />
     <Compile Include="Helpers\DelegateComand.cs" />
     <Compile Include="Helpers\Enums.cs" />
