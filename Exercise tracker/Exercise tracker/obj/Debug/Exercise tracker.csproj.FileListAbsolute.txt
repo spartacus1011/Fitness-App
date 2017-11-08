@@ -40,3 +40,60 @@ D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Deb
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\EditRosterView.baml
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseListBoxItemView.g.cs
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseListBoxItemView.baml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Exercise tracker.exe.config
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Exercise tracker.exe
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Exercise tracker.pdb
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\MvvmDialogs.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\MvvmDialogs.xml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.csprojResolveAssemblyReference.cache
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\CreateExerciseView.g.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\EditRosterView.g.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseListBoxItemView.g.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseRosterListViewItem.g.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\MainWindow.g.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\App.g.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker_MarkupCompile.cache
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker_MarkupCompile.lref
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\CreateExerciseView.baml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\EditRosterView.baml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseListBoxItemView.baml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\ExerciseRosterListViewItem.baml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Views\MainWindow.baml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.g.resources
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise_tracker.Properties.Resources.resources
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.csproj.GenerateResource.Cache
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.csproj.CoreCompileInputs.cache
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.exe
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker.pdb
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\NUnit3.TestAdapter.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\nunit.engine.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\nunit.engine.api.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Mono.Cecil.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Mono.Cecil.Rocks.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Castle.Core.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Moq.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\nunit.framework.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Castle.Core.xml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Moq.pdb
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\Moq.xml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\nunit.framework.xml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker_Content.g.cs

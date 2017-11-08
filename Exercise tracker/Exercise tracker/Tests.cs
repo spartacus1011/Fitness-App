@@ -6,19 +6,16 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using Moq;
+using Exercise_tracker.Classes;
+using Exercise_tracker.ViewModels;
+using Exercise_tracker.Views;
 using MvvmDialogs;
+using Moq;
 using NUnit.Framework;
 
-/*
- * Need to properly set everything up for the tests
- * To do this, proper interfaces need to be created
- * and you need to be bothered to do so
- 
-     */
-
-namespace ExerciseTracker.Tests
+namespace Exercise_tracker
 {
+    //This is just temporary until you can be bothered fixing this all up properly
     [TestFixture]
     public class Tests
     {
@@ -122,7 +119,7 @@ namespace ExerciseTracker.Tests
 
             Assert.False(mainWindowViewModel.ExerciseItemsToDo.Any(x => x.ExerciseName == testExerciseName));
 
-            List<ExerciseToDoItem> exercisesToAdd = mainWindowViewModel.AllExerciseItems.Where(x => x.ExerciseName == testExerciseName).ToList();
+            List<ExerciseItem> exercisesToAdd = mainWindowViewModel.AllExerciseItems.Where(x => x.ExerciseName == testExerciseName).ToList();
             Assert.AreEqual(1, exercisesToAdd.Count); //commented out for now. this will fail if the test is run more than once without clearing the list. Add back in once ClearSaved is implemented
 
             showAndAddExercise(exercisesToAdd);
@@ -133,12 +130,12 @@ namespace ExerciseTracker.Tests
         [Test]
         public void EnsureMainListStaysInCorrectOrder()
         {
-            List<ExerciseToDoItem> TestList = new List<ExerciseToDoItem>();
-            TestList.Add(new ExerciseToDoItem() { ExerciseName = "2", DueTime = DateTime.Now - new TimeSpan(1, 0, 0, 0) }); //yesterday
-            TestList.Add(new ExerciseToDoItem() { ExerciseName = "4", DueTime = DateTime.Now + new TimeSpan(1, 0, 0, 0) }); //tomorrow
-            TestList.Add(new ExerciseToDoItem() { ExerciseName = "0", DueTime = DateTime.Now - new TimeSpan(7, 0, 0, 0) }); //last week 
-            TestList.Add(new ExerciseToDoItem() { ExerciseName = "5", DueTime = DateTime.Now + new TimeSpan(7, 0, 0, 0) }); //next week
-            TestList.Add(new ExerciseToDoItem() { ExerciseName = "3", DueTime = DateTime.Now }); //today
+            List<ExerciseItem> TestList = new List<ExerciseItem>();
+            TestList.Add(new ExerciseItem() { ExerciseName = "2", DueTime = DateTime.Now - new TimeSpan(1, 0, 0, 0) }); //yesterday
+            TestList.Add(new ExerciseItem() { ExerciseName = "4", DueTime = DateTime.Now + new TimeSpan(1, 0, 0, 0) }); //tomorrow
+            TestList.Add(new ExerciseItem() { ExerciseName = "0", DueTime = DateTime.Now - new TimeSpan(7, 0, 0, 0) }); //last week 
+            TestList.Add(new ExerciseItem() { ExerciseName = "5", DueTime = DateTime.Now + new TimeSpan(7, 0, 0, 0) }); //next week
+            TestList.Add(new ExerciseItem() { ExerciseName = "3", DueTime = DateTime.Now }); //today
 
             clearExercises();
 
@@ -163,7 +160,7 @@ namespace ExerciseTracker.Tests
 
             showAndCreateExercise(exerciseName, dueTime: DateTime.Now);
 
-            ExerciseToDoItem theOne = showAndCreateExercise(exerciseName, dueTime: DateTime.Now);
+            ExerciseItem theOne = showAndCreateExercise(exerciseName, dueTime: DateTime.Now);
 
             CompleteExercise(theOne);
 
@@ -208,7 +205,7 @@ namespace ExerciseTracker.Tests
         {
             string ExerciseName = "Test";
 
-            ExerciseToDoItem theOne = showAndCreateExercise(ExerciseName);
+            ExerciseItem theOne = showAndCreateExercise(ExerciseName);
 
             DeleteExercise(theOne);
 
@@ -220,9 +217,9 @@ namespace ExerciseTracker.Tests
         //Jig/HelperFunctions----------------------------------------------------------------------------------------------
         //If this gets to big and messy, could probably move it to its own helper class provided that doesnt make more problems
 
-        private ExerciseToDoItem showAndCreateExercise(string exerciseName, bool isUsedInRoster = true, DateTime dueTime = new DateTime())
+        private ExerciseItem showAndCreateExercise(string exerciseName, bool isUsedInRoster = true, DateTime dueTime = new DateTime())
         {
-            ExerciseToDoItem addedExercise = new ExerciseToDoItem();
+            ExerciseItem addedExercise = new ExerciseItem();
             dialogService
                 .Setup(mock => mock.ShowDialog<CreateExerciseView>(mainWindowViewModel, It.IsAny<CreateExerciseViewModel>()))
                 .Returns(true)
@@ -237,13 +234,13 @@ namespace ExerciseTracker.Tests
             return addedExercise;
         }
 
-        private void showAndAddExercise(List<ExerciseToDoItem> itemsToAdd = null, List<ExerciseToDoItem> itemsToRemove = null)
+        private void showAndAddExercise(List<ExerciseItem> itemsToAdd = null, List<ExerciseItem> itemsToRemove = null)
         {
             if (itemsToAdd == null)
-                itemsToAdd = new List<ExerciseToDoItem>();
+                itemsToAdd = new List<ExerciseItem>();
 
             if (itemsToRemove == null)
-                itemsToRemove = new List<ExerciseToDoItem>();
+                itemsToRemove = new List<ExerciseItem>();
 
             if (itemsToAdd.Any(x => x.IsUsedInRoster))
                 throw new Exception("Attempting to Add item that is already in roster");
@@ -251,9 +248,9 @@ namespace ExerciseTracker.Tests
                 throw new Exception("Attempting to Remove item that isnt already in roster");
 
             dialogService
-                .Setup(mock => mock.ShowDialog<AddExerciseView>(mainWindowViewModel, It.IsAny<AddExerciseViewModel>()))
+                .Setup(mock => mock.ShowDialog<EditRosterView>(mainWindowViewModel, It.IsAny<EditRosterViewModel>()))
                 .Returns(true)
-                .Callback((INotifyPropertyChanged ownerViewModel, AddExerciseViewModel addExerciseViewModel) =>
+                .Callback((INotifyPropertyChanged ownerViewModel, EditRosterViewModel addExerciseViewModel) =>
                 {
                     foreach (var item in itemsToAdd)
                     {
@@ -267,10 +264,10 @@ namespace ExerciseTracker.Tests
                 }
                    );
 
-            mainWindowViewModel.ShowAddExerciseCommand.Execute(null);
+            mainWindowViewModel.ShowEditRosterCommand.Execute(null);
         }
 
-        private void CompleteExercise(ExerciseToDoItem exerciseItem)
+        private void CompleteExercise(ExerciseItem exerciseItem)
         {
             dialogService.Setup(mock => //must 100% match the one used in code. Should make these a single item so that it can be called easier
                     mock.ShowMessageBox(
@@ -285,7 +282,7 @@ namespace ExerciseTracker.Tests
             exerciseItem.MarkExerciseCompletedCommand.Execute(null);
         }
 
-        private void DeleteExercise(ExerciseToDoItem exerciseItem)
+        private void DeleteExercise(ExerciseItem exerciseItem)
         {
             dialogService.Setup(mock => //must 100% match the one used in code. Should make these a single item so that it can be called easier
                     mock.ShowMessageBox(
