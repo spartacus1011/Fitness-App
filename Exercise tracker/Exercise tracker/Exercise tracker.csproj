@@ -139,6 +139,7 @@
     <Compile Include="ViewModels\CreateExerciseViewModel.cs" />
     <Compile Include="ViewModels\EditRosterViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\RosterListItemViewModel.cs" />
     <Compile Include="Views\CreateExerciseView.xaml.cs">
       <DependentUpon>CreateExerciseView.xaml</DependentUpon>
     </Compile>

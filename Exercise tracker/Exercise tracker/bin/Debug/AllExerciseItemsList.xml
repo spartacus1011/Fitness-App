@@ -1,5 +1,6 @@
 ﻿<ArrayOfExerciseItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ExerciseItem>
+    <GUIDID>9a022db6-5755-4de4-85e0-9c9597d18559</GUIDID>
     <ExerciseName>Test1</ExerciseName>
     <Exercisetype>SingleReps</Exercisetype>
     <RequiredReps>0</RequiredReps>
@@ -13,6 +14,38 @@
     <TotalCompletedCount>0</TotalCompletedCount>
     <IsOneTimeExercise>false</IsOneTimeExercise>
     <DueTime>2017-11-08T22:11:23.5338608+11:00</DueTime>
+    <ExerciseRecurrence>Daily</ExerciseRecurrence>
+  </ExerciseItem>
+  <ExerciseItem>
+    <GUIDID>ae9dadd2-ff5d-4a12-b4b7-4eca1573c0d6</GUIDID>
+    <ExerciseName>test2</ExerciseName>
+    <Exercisetype>SingleReps</Exercisetype>
+    <RequiredReps>4</RequiredReps>
+    <RequiredTime>0</RequiredTime>
+    <RequiredSets>0</RequiredSets>
+    <RequiredSetsCount>0</RequiredSetsCount>
+    <ExerciseTimeUnits>Seconds</ExerciseTimeUnits>
+    <IsUsingRestTime>false</IsUsingRestTime>
+    <RestTime>Seconds30</RestTime>
+    <IsUsedInRoster>false</IsUsedInRoster>
+    <TotalCompletedCount>0</TotalCompletedCount>
+    <IsOneTimeExercise>false</IsOneTimeExercise>
+    <DueTime>2017-11-09T11:27:04.3768355+11:00</DueTime>
+    <ExerciseRecurrence>Daily</ExerciseRecurrence>
+  </ExerciseItem>
+  <ExerciseItem>
+    <Exercisetype>SingleReps</Exercisetype>
+    <RequiredReps>0</RequiredReps>
+    <RequiredTime>0</RequiredTime>
+    <RequiredSets>0</RequiredSets>
+    <RequiredSetsCount>0</RequiredSetsCount>
+    <ExerciseTimeUnits>Seconds</ExerciseTimeUnits>
+    <IsUsingRestTime>false</IsUsingRestTime>
+    <RestTime>Seconds30</RestTime>
+    <IsUsedInRoster>true</IsUsedInRoster>
+    <TotalCompletedCount>0</TotalCompletedCount>
+    <IsOneTimeExercise>false</IsOneTimeExercise>
+    <DueTime>0001-01-01T00:00:00</DueTime>
     <ExerciseRecurrence>Daily</ExerciseRecurrence>
   </ExerciseItem>
 </ArrayOfExerciseItem>

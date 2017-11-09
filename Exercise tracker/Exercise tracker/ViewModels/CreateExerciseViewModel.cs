@@ -117,7 +117,8 @@ namespace Exercise_tracker.ViewModels
 
         public CreateExerciseViewModel()
         {
-            itemToAdd = new ExerciseItem();
+            Guid newGUIDID = Guid.NewGuid();
+            itemToAdd = new ExerciseItem(newGUIDID.ToString());
             IsUsedInRoster = true;
         }
 

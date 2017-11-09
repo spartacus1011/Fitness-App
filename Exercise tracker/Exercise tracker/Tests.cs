@@ -254,12 +254,14 @@ namespace Exercise_tracker
                 {
                     foreach (var item in itemsToAdd)
                     {
-                        item.ToggleAddToRosterCommand.Execute(null);
+                        //the possible null exception is good as it means something has gone wrong 
+                        addExerciseViewModel.RosterItems.FirstOrDefault(x => x.GUIDID == item.GUIDID).ToggleAddToRosterCommand.Execute(null);
                     }
 
                     foreach (var item in itemsToRemove)
                     {
-                        item.ToggleAddToRosterCommand.Execute(null);
+                        //the possible null exception is good as it means something has gone wrong 
+                        addExerciseViewModel.RosterItems.FirstOrDefault(x => x.GUIDID == item.GUIDID).ToggleAddToRosterCommand.Execute(null);
                     }
                 }
                    );

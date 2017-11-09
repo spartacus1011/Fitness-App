@@ -121,3 +121,12 @@ D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Deb
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\System.Data.SQLite.xml
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\bin\Debug\System.Data.SQLite.dll.config
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Debug\Exercise tracker_Content.g.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\EntityFramework.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\System.Data.SQLite.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\EntityFramework.xml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\System.Data.SQLite.xml
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\bin\Debug\System.Data.SQLite.dll.config

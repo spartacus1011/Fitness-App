@@ -109,32 +109,36 @@ namespace Exercise_tracker.ViewModels
         private void ShowEditRosterDialog()
         {
             var dialogViewModel = new EditRosterViewModel(AllExerciseItems);
-            List<ExerciseItem> temp = ExerciseItemsToDo.ToList();
+            List<ExerciseItem> temp = AllExerciseItems.ToList();
 
             bool? success = dialogService.ShowDialog<EditRosterView>(this, dialogViewModel);
-            ExerciseItemsToDo.Clear();
+           
             if (success == true)
             {
-                
-                foreach (var item in dialogViewModel.RosterItems.Where(x => x.IsUsedInRoster))
+                ExerciseItemsToDo.Clear();
+                foreach (var rosterItem in dialogViewModel.RosterItems)
                 {
-                    if (!temp.Contains(item))
+                    ExerciseItem exerciseItem = temp.FirstOrDefault(x => x.GUIDID == rosterItem.GUIDID);
+                    exerciseItem.IsUsedInRoster = rosterItem.IsUsedInRoster;
+                    RaisePropertyChangedEvent("IsUsedInRoster");
+                    if (!temp.Contains(exerciseItem))
                     {
-                        item.DueTime = DateTime.Now;
+                        exerciseItem.DueTime = DateTime.Now;
                     }
-                    ExerciseItemsToDo.Add(item);
+                    if(exerciseItem.IsUsedInRoster)
+                        ExerciseItemsToDo.Add(exerciseItem);
                 }
 
                 RebuildList();
             }
             else //revert it to the way it was
             {
-                foreach (ExerciseItem item in temp)
-                {
-                    ExerciseItemsToDo.Add(item);
-                }
+                //foreach (ExerciseItem item in temp)
+                //{
+                //    ExerciseItemsToDo.Add(item);
+                //}
 
-                RebuildList();
+                //RebuildList();
             }
         }
         #endregion

@@ -12,7 +12,7 @@ namespace Exercise_tracker.Classes
         public event EventHandler DeleteExercise;
         public event EventHandler EditExericse;
         public ICommand MarkExerciseCompletedCommand { get { return new DelegateCommand(MarkExerciseCompleted); } }
-        public ICommand ToggleAddToRosterCommand { get { return new DelegateCommand(ToggleAddToRoster); } }
+        
         public ICommand DeleteThisExerciseCommand { get { return new DelegateCommand(DeleteThisExerciseItem); } }
         public ICommand EditThisExerciseCommand { get { return new DelegateCommand(EditThisExerciseItem); } }
 
@@ -93,11 +93,14 @@ namespace Exercise_tracker.Classes
         }
         //End Variables
 
-        public ExerciseItem()
+        public ExerciseItem() //this is the saving a temp using one
         {
-            DueTime = DateTime.Now;
-            Guid g = Guid.NewGuid();
-            GUIDID = g.ToString();
+        }
+
+        public ExerciseItem(string GUIDID) //this is the proper creation one
+        {
+            this.GUIDID = GUIDID;
+            
         }
 
         private void MarkExerciseCompleted()
@@ -126,11 +129,7 @@ namespace Exercise_tracker.Classes
             UpdateViews();
         }
 
-        private void ToggleAddToRoster()
-        {
-            IsUsedInRoster = !IsUsedInRoster;
-            RaisePropertyChangedEvent("IsUsedInRoster");
-        }
+
 
         private void DeleteThisExerciseItem()
         {
