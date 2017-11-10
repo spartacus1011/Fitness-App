@@ -33,19 +33,19 @@ namespace Exercise_tracker.Classes
         public int TotalCompletedCount { get; set; } //this is the total amount of times this exercise has been done (To be replaced by a proper history thing)
         public bool IsOneTimeExercise { get; set; } //use this to signify that it was a one time exercise. these guys probably wont be shown in the to do list rather a history list. Until history list is done, this will just add 1 to the total count
         public DateTime DueTime { get; set; }
-        public bool OnTime { get { return DueTime.Day == DateTime.Now.Day; } }
-        public bool Late { get { return DueTime.Day < DateTime.Now.Day; } }
-        public bool Early { get { return DueTime.Day > DateTime.Now.Day; } }
+        public bool OnTime { get { return DueTime.DayOfYear == DateTime.Now.DayOfYear; } }
+        public bool Late { get { return DueTime.DayOfYear < DateTime.Now.DayOfYear; } }
+        public bool Early { get { return DueTime.DayOfYear > DateTime.Now.DayOfYear; } }
         public string DueTimeAsString
         {
             get
             {
                 if (Late)
-                    return "Due " + (DateTime.Now.Day - DueTime.Day) + " days ago";
+                    return "Due " + Math.Abs(DateTime.Now.DayOfYear - DueTime.DayOfYear) + " days ago";
                 if (OnTime)
                     return "Due Today";
                 if (Early)
-                    return "Due in " + Math.Abs(DateTime.Now.Day - DueTime.Day) + " days";
+                    return "Due in " + Math.Abs(DateTime.Now.DayOfYear - DueTime.DayOfYear) + " days";
                 return ""; //should be impossible to get to this point
             }
         }
@@ -75,6 +75,12 @@ namespace Exercise_tracker.Classes
             }
         }
         public ExerciseRecurrenceEnum ExerciseRecurrence { get; set; }
+        public bool IsDailyRecurrence { get {return ExerciseRecurrence == ExerciseRecurrenceEnum.Daily;} }
+        public bool IsWeeklyRecurrence { get { return ExerciseRecurrence == ExerciseRecurrenceEnum.Weekly; } }
+        public bool IsMonthlyRecurrence { get { return ExerciseRecurrence == ExerciseRecurrenceEnum.Monthly; } }
+        public DayOfWeek WeeklyRecurrenceDay { get; set; }
+        public int MonthlyRecurrenceDay { get; set; }
+
         public TimeSpan RecurranceTimeSpan
         {
             get
@@ -86,7 +92,7 @@ namespace Exercise_tracker.Classes
                     case ExerciseRecurrenceEnum.Weekly:
                         return new TimeSpan(7, 0, 0, 0);
                     case ExerciseRecurrenceEnum.Monthly:
-                        return new TimeSpan(30, 0, 0, 0); //this obiously wont work properly find a more suitable way around this
+                        return new TimeSpan(DateTime.DaysInMonth(DateTime.Now.Year,DateTime.Now.Month), 0, 0, 0); //this should always work properly 
                 }
                 return new TimeSpan(0);
             }
@@ -100,7 +106,6 @@ namespace Exercise_tracker.Classes
         public ExerciseItem(string GUIDID) //this is the proper creation one
         {
             this.GUIDID = GUIDID;
-            
         }
 
         private void MarkExerciseCompleted()
@@ -162,6 +167,8 @@ namespace Exercise_tracker.Classes
             RequiredSetsCount = RequiredSets;
             DueTime = DueTime.Add(RecurranceTimeSpan);
             TotalCompletedCount += 1;
+
+            UpdateViews();
 
             MarkExerciseCompletedChanged?.Invoke(this, null);
         }

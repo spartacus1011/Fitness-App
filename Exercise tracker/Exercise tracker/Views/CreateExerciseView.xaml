@@ -46,6 +46,12 @@
             <TextBlock Text="Recurrence" Foreground="White"/>
             <ComboBox SelectedItem="{Binding SelectedExerciseRecurrence}" ItemsSource="{Binding ExerciseRecurrenceValues}" Width="100" HorizontalAlignment="Right"/>
         </Grid>
+        <Grid Visibility="{Binding IsWeekly, Converter={StaticResource BoolToVis}}" Margin="10,5">
+            <ComboBox SelectedItem="{Binding SelectedDayOfTheWeek}" ItemsSource="{Binding DaysOfTheWeekValues}" Width="100" HorizontalAlignment="Right"></ComboBox>
+        </Grid>
+        <Grid Visibility="{Binding IsMonthly, Converter={StaticResource BoolToVis}}" Margin="10,5">
+            <ComboBox SelectedItem="{Binding SelectedDayOfTheMonth}" ItemsSource="{Binding DaysInThisMonth}" Width="100" HorizontalAlignment="Right"></ComboBox>
+        </Grid>
         <Grid Margin="10,5">
             <CheckBox IsChecked="{Binding IsUsedInRoster}" Content="Add to Roster straight away" HorizontalAlignment="Center" Foreground="White" />
         </Grid>

@@ -44,6 +44,7 @@ namespace Exercise_tracker.ViewModels
         private void RebuildList()
         {
             List<ExerciseItem> temp = ExerciseItemsToDo.OrderBy(x => x.DueTime).ToList();
+
             ExerciseItemsToDo.Clear();
             foreach (var item in temp)
             {
@@ -89,8 +90,24 @@ namespace Exercise_tracker.ViewModels
 
             bool? success = dialogService.ShowDialog<CreateExerciseView>(this, dialogViewModel);
 
+            DateTime today = DateTime.Today;
+
             if (success == true)
             {
+                if(dialogViewModel.ItemToAdd.IsDailyRecurrence)
+                    dialogViewModel.ItemToAdd.DueTime = today;
+                else if (dialogViewModel.ItemToAdd.IsWeeklyRecurrence)
+                {
+                    // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+                    int requiredDueDay = ((int)dialogViewModel.ItemToAdd.WeeklyRecurrenceDay - (int)today.DayOfWeek + 7) % 7;
+                    dialogViewModel.ItemToAdd.DueTime = today.AddDays(requiredDueDay);
+                }
+                else if (dialogViewModel.ItemToAdd.IsMonthlyRecurrence)
+                {
+                    int requiredDueMonth = ((int) dialogViewModel.ItemToAdd.MonthlyRecurrenceDay - (int)today.Month + DateTime.DaysInMonth(today.Year,today.Month)) % DateTime.DaysInMonth(today.Year,today.Month) ;
+                    dialogViewModel.ItemToAdd.DueTime = today.AddDays(requiredDueMonth + 1); //dont ask me why i need a plus 1. I dont know
+                }
+
                 AllExerciseItems.Add(dialogViewModel.ItemToAdd);
                 SaveExerciseList();
 
@@ -99,11 +116,13 @@ namespace Exercise_tracker.ViewModels
                     dialogViewModel.ItemToAdd.MarkExerciseCompletedChanged += OnMarkExerciseCompletedChanged; //check that you dont need to explicitly unsub when this item is removed
                     dialogViewModel.ItemToAdd.EditExericse += OnEditExercise;
                     dialogViewModel.ItemToAdd.DeleteExercise += OnDeleteExercise;
-                    dialogViewModel.ItemToAdd.RequiredSetsCount = dialogViewModel.ItemToAdd.RequiredSets; //set the sets. dont really need an if statement here doesnt matter if 0=0
+                    //dialogViewModel.ItemToAdd.RequiredSetsCount = dialogViewModel.ItemToAdd.RequiredSets; //set the sets. dont really need an if statement here doesnt matter if 0=0
+                    //the above line seems kinda odd and not necessary. Check to see if it breaks anything
                     ExerciseItemsToDo.Add(dialogViewModel.ItemToAdd);
                     OnUpdateTimerTick(null, null);
                 }
             }
+            RebuildList();
         }
         
         private void ShowEditRosterDialog()

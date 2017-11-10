@@ -93,6 +93,8 @@ namespace Exercise_tracker.ViewModels
             {
                 itemToAdd.ExerciseRecurrence = value;
                 RaisePropertyChangedEvent("SelectedExerciseRecurrence");
+                RaisePropertyChangedEvent("IsWeekly");
+                RaisePropertyChangedEvent("IsMonthly");
             }
         }
         public IEnumerable<ExerciseTimeUnitsEnum> ExerciseTimeUnitValues { get { return Enum.GetValues(typeof(ExerciseTimeUnitsEnum)).Cast<ExerciseTimeUnitsEnum>(); } }
@@ -102,9 +104,37 @@ namespace Exercise_tracker.ViewModels
             set
             {
                 itemToAdd.ExerciseTimeUnits = value;
-                RaisePropertyChangedEvent("ExerciseTimeUnits");
+                RaisePropertyChangedEvent("SelectedExerciseTimeUnits");
             }
         }
+        public bool IsWeekly { get { return itemToAdd.IsWeeklyRecurrence; } }
+        public IEnumerable<DayOfWeek> DaysOfTheWeekValues { get { return Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>(); } }
+        public DayOfWeek SelectedDayOfTheWeek
+        {
+            get { return itemToAdd.WeeklyRecurrenceDay; }
+            set
+            {
+                itemToAdd.WeeklyRecurrenceDay = value;
+                RaisePropertyChangedEvent("SelectedDayOfTheWeek");
+            }
+        }
+
+        public bool IsMonthly { get { return itemToAdd.IsMonthlyRecurrence; } }
+        public IEnumerable<int> DaysInThisMonth
+        {
+            get { return Enumerable.Range(1, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month)); }
+        }
+
+        public int SelectedDayOfTheMonth
+        {
+            get { return itemToAdd.MonthlyRecurrenceDay; }
+            set
+            {
+                itemToAdd.MonthlyRecurrenceDay = value;
+                RaisePropertyChangedEvent("SelectedDayOfTheMonth");
+            }
+        }
+
         public bool IsUsedInRoster
         {
             get { return itemToAdd.IsUsedInRoster; }
@@ -136,6 +166,8 @@ namespace Exercise_tracker.ViewModels
             RaisePropertyChangedEvent("SelectedExerciseRecurrence");
             RaisePropertyChangedEvent("ExerciseTimeUnits");
             RaisePropertyChangedEvent("IsUsedInRoster");
+            RaisePropertyChangedEvent("IsWeekly");
+            RaisePropertyChangedEvent("IsMonthly");
         }
 
         private void CloseDialogTrue()
