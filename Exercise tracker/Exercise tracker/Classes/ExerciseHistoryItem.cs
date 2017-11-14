@@ -8,6 +8,7 @@ namespace Exercise_tracker.Classes
 {
     public class ExerciseHistoryItem //I think this way of implementing things would be very difficult to work
     {
+        //yeah, this might not be needed at all!
         public int TotalCount { get; set; }
         public List<DateTime> CompleteDateTimes { get; set; }
 

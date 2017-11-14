@@ -4687,7 +4687,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ross\\.nuget\\packages\\": {}
+    "C:\\Users\\rforzisi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -4695,14 +4695,14 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\SourceTreeProjects\\Exercise tracker\\Exercise tracker\\ExerciseTracker.Tests\\ExerciseTracker.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\rforzisi\\Documents\\Test Projects\\ExerciseTracker\\Exercise tracker\\ExerciseTracker.Tests\\ExerciseTracker.Tests.csproj",
       "projectName": "ExerciseTracker.Tests",
-      "projectPath": "D:\\SourceTreeProjects\\Exercise tracker\\Exercise tracker\\ExerciseTracker.Tests\\ExerciseTracker.Tests.csproj",
-      "packagesPath": "C:\\Users\\Ross\\.nuget\\packages\\",
-      "outputPath": "D:\\SourceTreeProjects\\Exercise tracker\\Exercise tracker\\ExerciseTracker.Tests\\obj\\",
+      "projectPath": "C:\\Users\\rforzisi\\Documents\\Test Projects\\ExerciseTracker\\Exercise tracker\\ExerciseTracker.Tests\\ExerciseTracker.Tests.csproj",
+      "packagesPath": "C:\\Users\\rforzisi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\rforzisi\\Documents\\Test Projects\\ExerciseTracker\\Exercise tracker\\ExerciseTracker.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Ross\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\rforzisi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

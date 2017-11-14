@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SQLite;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Threading;
 using System.Diagnostics;
+using System.IO;
 using Exercise_tracker.Helpers;
 using Exercise_tracker.ViewModels;
 using Exercise_tracker.Classes;
@@ -39,6 +41,27 @@ namespace Exercise_tracker.ViewModels
             updateTimer.Start();
 
             LoadExerciseList();
+
+            //DB testing--------------------------------------------
+            //DatabaseHelper.CreateTheStrings();
+            string dbPath = rootProgramDirectory + "AllTheExercise.db";
+
+            try
+            {
+                if (File.Exists(dbPath))
+                    File.Delete(dbPath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return;
+            }
+
+            SQLiteConnection connection = DatabaseHelper.ConnectToDatabase(dbPath);
+            DatabaseHelper.CreateDatabase(dbPath); //pretty sure these will have the same outcome if the db was already created
+
+            DatabaseHelper.CreateNewExerciseTable(connection);
+
         }
 
         private void RebuildList()

@@ -19,6 +19,11 @@ namespace Exercise_tracker.Classes
         public string GUIDID { get; set; } //This id will mainly be used to link the exercise item back to its history component counterpart
         public string ExerciseName { get; set; }
         public ExercisetypeEnum Exercisetype { get; set; }
+        public int ExerciseTypeId //makes storing the data in the database alot easier
+        {
+            get { return (int)this.Exercisetype; }
+            set { Exercisetype = (ExercisetypeEnum)value; }
+        }
         public bool IsRepetitions { get { return Exercisetype == ExercisetypeEnum.SingleReps || Exercisetype == ExercisetypeEnum.NormalSets; } } //might be worth investing in an enum to bool converter for wpf
         public bool IsTimed { get { return Exercisetype == ExercisetypeEnum.Timed || Exercisetype == ExercisetypeEnum.TimedSets; } }
         public bool IsSets { get { return Exercisetype == ExercisetypeEnum.NormalSets || Exercisetype == ExercisetypeEnum.TimedSets; } }
