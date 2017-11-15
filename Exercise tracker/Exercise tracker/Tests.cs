@@ -83,7 +83,7 @@ namespace Exercise_tracker
         }
 
         [Test, Timeout(10000)] //I guess this is ok for it to create 1000 exercises in under 10 seconds. Watch this though
-        [Ignore("Takes to long. Do check every so often")]
+        //[Ignore("Takes to long. Do check every so often")] //DB is faster!!!
         public void StressTest1()
         {
             string ExerciseBaseName = "Exercise: ";
@@ -169,9 +169,9 @@ namespace Exercise_tracker
 
         [Test]
         [NUnit.Framework.Category(SKIP_SETUP)]
-        public void LoadAndSaveTest()
+        [Ignore("Need new tests to verify the database!!")]
+        public void LoadAndSaveTestXML()
         {
-
             string path = rootProgramDirectory + allExercisesXmlFilename;
 
             if (File.Exists(path))

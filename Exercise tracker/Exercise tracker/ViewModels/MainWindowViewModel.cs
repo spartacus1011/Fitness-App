@@ -29,8 +29,7 @@ namespace Exercise_tracker.ViewModels
         private readonly string allExercisesXmlFilename = "AllExerciseItemsList.xml";
 
         private readonly DispatcherTimer updateTimer = new DispatcherTimer();
-
-        private SQLiteConnection connection;
+        private DataStore database;
 
         public MainWindowViewModel()
         {
@@ -43,7 +42,9 @@ namespace Exercise_tracker.ViewModels
             updateTimer.Start();
 
             string dbPath = rootProgramDirectory + "AllTheExercise.db";
-            connection = DatabaseHelper.ConnectToDatabase(dbPath);
+            database = new DataStore(dbPath);
+            
+
 
             LoadExerciseList();
 
@@ -51,7 +52,7 @@ namespace Exercise_tracker.ViewModels
             //DatabaseHelper.CreateTheStrings();
             
 
-            //DatabaseHelper.CreateNewExerciseTable(connection);
+            
 
             //ExerciseItem dbtestExerciseItem = new ExerciseItem("I am a guid 000-000-0000--000-0-0") {ExerciseName = "pushups", ExerciseTypeId = 1, IsUsedInRoster = true, DueTime = DateTime.Now};
 
@@ -77,14 +78,14 @@ namespace Exercise_tracker.ViewModels
 
         private void SaveExerciseList() //I should never need a save at all...
         {
-            XmlHelper.ToXmlFile(AllExerciseItems, rootProgramDirectory + allExercisesXmlFilename);
+            //XmlHelper.ToXmlFile(AllExerciseItems, rootProgramDirectory + allExercisesXmlFilename);
         }
 
         private void LoadExerciseList()
         {
             try
             {
-                AllExerciseItems = DatabaseHelper.LoadAllExerciseItems(connection);
+                AllExerciseItems = database.LoadAllExerciseItems();
 
                 foreach (ExerciseItem item in AllExerciseItems)
                 {
@@ -132,7 +133,7 @@ namespace Exercise_tracker.ViewModels
                 }
 
                 AllExerciseItems.Add(dialogViewModel.ItemToAdd);
-                DatabaseHelper.AddExercise(connection, dialogViewModel.ItemToAdd);
+                database.AddExercise(dialogViewModel.ItemToAdd);
 
                 SaveExerciseList();
 
@@ -191,12 +192,13 @@ namespace Exercise_tracker.ViewModels
         #region Events
         private void OnProcessExit(object sender, EventArgs e)
         {
-            DatabaseHelper.DisconnectFromDatabase(connection);
+            database.DisconnectFromDatabase();
             SaveExerciseList();
         }
 
         void OnMarkExerciseCompletedChanged(object sender, EventArgs e)
         {
+            database.UpdateDueTime(sender as ExerciseItem);
             RebuildList();
         }
 
@@ -219,7 +221,8 @@ namespace Exercise_tracker.ViewModels
 
             if (success == true)
             {
-                SaveExerciseList(); //might be a bad idea saving here. only time will tell
+                //SaveExerciseList(); //might be a bad idea saving here. only time will tell
+                database.UpdateExercise(dialogViewModel.ItemToAdd);
 
                 if (dialogViewModel.ItemToAdd.IsUsedInRoster)
                 {
@@ -232,9 +235,9 @@ namespace Exercise_tracker.ViewModels
         {
             foreach (var item in ExerciseItemsToDo)
             {
-                item.UpdateTime();
+                item.UpdateTime(); //update time updates the views
             }
-            RebuildList();
+            //RebuildList(); //list shouldn't need to be rebuilt as all items will change equally, meaning the order cant change
         }
         #endregion
     }

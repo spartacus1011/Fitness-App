@@ -128,9 +128,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="Classes\ExerciseHistoryItem.cs" />
     <Compile Include="Classes\ExerciseItem.cs" />
-    <Compile Include="Helpers\DatabaseHelper.cs" />
+    <Compile Include="Helpers\DataStore.cs" />
     <Compile Include="Helpers\DelegateComand.cs" />
     <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />

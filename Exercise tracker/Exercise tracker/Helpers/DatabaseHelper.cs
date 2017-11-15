@@ -1,55 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data;
-using System.Data.SQLite;
-using Exercise_tracker.Classes;
 
-namespace Exercise_tracker.Helpers
+namespace Exercise_tracker.Classes
 {
-    /// <summary>
-    /// Use this class to greatly simplify the interactions between the code and the database
-    /// </summary>
-    public static class DatabaseHelper
+    public static class DatabaseHelper 
     {
-        private static string allExercisesTableName = "Exercises";
-        private static string allExercisesTableData = "";
-        private static string exerciseTableDefinition = "";
 
-        static DatabaseHelper()
+        public static bool CreateDatabase(string filePathAndName) //not really needed unless i plan to create the database but not use it
         {
-            ExerciseItem exerciseItem = new ExerciseItem();
-            List<string> exerciseTableDataList = new List<string>()
+            if (!File.Exists(filePathAndName))
             {
-                nameof(exerciseItem.GUIDID) + ", ",
-                nameof(exerciseItem.ExerciseName) + ", ",
-                nameof(exerciseItem.ExerciseTypeId) + ", ",
-                //nameof(exerciseItem.RequiredReps) + ", ",
-                //nameof(exerciseItem.RequiredTime) + ", ",
-                //nameof(exerciseItem.RequiredSets) + ", ",
-                //nameof(exerciseItem.RequiredSetsCount) + ", ",
-                nameof(exerciseItem.DueTime) + ", ",
-                nameof(exerciseItem.IsUsedInRoster) + "", //last one doesnt need a comma
-                //Make sure to add in all the others. Remember, there is alot
-            };
-            foreach (var thing in exerciseTableDataList)
-            {
-                allExercisesTableData += thing;
+                Console.WriteLine("Creating Database at: " + filePathAndName);
+                SQLiteConnection.CreateFile(filePathAndName);
+                return true;
             }
-            List<string> exerciseTableDefinitionList = new List<string>()
+            else
             {
-                nameof(exerciseItem.GUIDID) + " string,",
-                nameof(exerciseItem.ExerciseName) + " string," ,
-                nameof(exerciseItem.ExerciseTypeId) + " int," ,
-                nameof(exerciseItem.DueTime) + " string,", //stored as string in UTC time
-                nameof(exerciseItem.IsUsedInRoster) + " bool"  ,//last one doesnt need a comma
-                //Make sure to add in all the others. Remember, there is alot
-            };
-            foreach (var thing in exerciseTableDefinitionList)
-            {
-                exerciseTableDefinition += thing;
+                Console.WriteLine("Failed to create new database: Database already exists");
+                return false;
             }
         }
 
@@ -65,31 +39,11 @@ namespace Exercise_tracker.Helpers
             connection.Close();
         }
 
-        public static bool CreateDatabase(string filePathAndName) //not really needed unless i plan to create the database but not use it
-        {
-            if (!System.IO.File.Exists(filePathAndName))
-            {
-                Console.WriteLine("Creating Database at: " + filePathAndName);
-                SQLiteConnection.CreateFile(filePathAndName);
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Failed to create new database: Database already exists");
-                return false;
-            }
-        }
-
-        public static void CreateNewExerciseTable(SQLiteConnection connection)
-        {
-            CreateTable(connection, allExercisesTableName, exerciseTableDefinition);
-        }
-
-        private static void CreateTable(SQLiteConnection connection, string tableName, string tableDefinition)
+        public static void CreateTable(SQLiteConnection connection, string tableName, string tableDefinition)
         {
             try
             {
-                string createCommand = string.Format("create table {0} ({1})", tableName, tableDefinition);
+                string createCommand = String.Format("create table {0} ({1})", tableName, tableDefinition);
                 SQLiteCommand create = new SQLiteCommand(createCommand, connection);
                 create.ExecuteNonQuery();
                 create.Dispose(); //putting the dispose inside the try seems like a bad idea but how else would you do it?
@@ -101,22 +55,7 @@ namespace Exercise_tracker.Helpers
             }
         }
 
-        public static void AddExercise(SQLiteConnection connection, ExerciseItem exercise)
-        {
-            List<object> exercisesToAdd = new List<object>()
-            {
-                exercise.GUIDID,
-                exercise.ExerciseName,
-                exercise.ExerciseTypeId,
-                exercise.DueTime.ToUniversalTime().ToString("O"),
-                exercise.IsUsedInRoster,
-                
-            };
-
-            AddItem(connection, allExercisesTableName, allExercisesTableData, exercisesToAdd);
-        }
-
-        private static void AddItem(SQLiteConnection connection, string tableName, string tableData, List<object> allItems)
+        public static void AddItem(SQLiteConnection connection, string tableName, string tableData, List<object> allItems)
         {
             //the order of the items in all items is important!!! it must match the order of things in table data
             //tableData more or less means columns
@@ -141,7 +80,7 @@ namespace Exercise_tracker.Helpers
                 {
                     command.Transaction = transaction;
 
-                    string commandString = string.Format("insert into {0} ({1}) values ({2})", tableName, tableData, dataWithAt);
+                    string commandString = String.Format("insert into {0} ({1}) values ({2})", tableName, tableData, dataWithAt);
                     command.CommandText = commandString;
 
                     for (int i = 0; i < splitData.Length; i++)
@@ -186,7 +125,7 @@ namespace Exercise_tracker.Helpers
 
                     foreach (var items in allItems)
                     {
-                        string commandString = string.Format("insert into {0} ({1}) values ({2})", tableName, tableData, dataWithAt);
+                        string commandString = String.Format("insert into {0} ({1}) values ({2})", tableName, tableData, dataWithAt);
                         command.CommandText = commandString;
 
                         for (int i = 0; i < splitData.Length; i++)
@@ -201,21 +140,7 @@ namespace Exercise_tracker.Helpers
             }
         }
 
-        public static void UpdateExercise(SQLiteConnection connection, ExerciseItem exercise)
-        {
-            List<object> objectsToWrite = new List<object>
-            {
-                exercise.GUIDID,
-                exercise.ExerciseName,
-                exercise.ExerciseTypeId,
-                exercise.DueTime.ToUniversalTime().ToString("O"),
-                exercise.IsUsedInRoster,
-            };
-
-            UpdateItem(connection, allExercisesTableName, allExercisesTableData, objectsToWrite);
-        }
-
-        private static void UpdateItem(SQLiteConnection connection, string tableName, string tableData, List<object> allItems, string whereConditions = "")
+        public static void UpdateItem(SQLiteConnection connection, string tableName, string tableData, List<object> allItems, string whereConditions = "")
         {
             //tableData more or less means columns
             tableData = tableData.Replace(" ", ""); //remove all spaces (Not really needed if you goven over the entered string but this makes things a bit neater)
@@ -242,7 +167,7 @@ namespace Exercise_tracker.Helpers
             SQLiteCommand command = new SQLiteCommand(connection);
             command.Transaction = transaction;
 
-            command.CommandText = string.Format("Update {0} set {1} where {2}", tableName, dataWithAt, whereConditions);
+            command.CommandText = String.Format("Update {0} set {1} where {2}", tableName, dataWithAt, whereConditions);
 
             for (int i = 0; i < splitData.Length; i++)
             {
@@ -255,26 +180,7 @@ namespace Exercise_tracker.Helpers
             transaction.Dispose();
         }
 
-        public static List<ExerciseItem> LoadAllExerciseItems(SQLiteConnection connection)
-        {
-            DataTable dt = LoadItems(connection, allExercisesTableName, allExercisesTableData);
-
-            ExerciseItem nameExerciseItem = new ExerciseItem();
-
-            List<ExerciseItem> loadedItems= (from rw in dt.AsEnumerable()
-                select new ExerciseItem
-                {
-                    GUIDID = Convert.ToString(rw[nameof(nameExerciseItem.GUIDID)]),
-                    ExerciseName = Convert.ToString(rw[nameof(nameExerciseItem.ExerciseName)]),
-                    ExerciseTypeId = Convert.ToInt32(rw[nameof(nameExerciseItem.ExerciseTypeId)]),
-                    DueTime = Convert.ToDateTime(rw[nameof(nameExerciseItem.DueTime)]),
-                    IsUsedInRoster = Convert.ToBoolean(rw[nameof(nameExerciseItem.IsUsedInRoster)]),
-                }).ToList();
-
-            return loadedItems;
-        }
-
-        private static DataTable LoadItems(SQLiteConnection connection, string tableName, string tableData, string whereConstraints = "")
+        public static DataTable LoadItems(SQLiteConnection connection, string tableName, string tableData, string whereConstraints = "")
         {
             //make sure if you use the where constraints, add the "where " to the string
 
@@ -287,7 +193,6 @@ namespace Exercise_tracker.Helpers
 
             return dt;
         }
-
 
     }
 }
