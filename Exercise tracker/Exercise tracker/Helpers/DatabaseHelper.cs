@@ -14,31 +14,37 @@ namespace Exercise_tracker.Helpers
     /// </summary>
     public static class DatabaseHelper
     {
-        private static string exerciseTableName = "Exercises";
-        private static string exerciseTableData = "";
+        private static string allExercisesTableName = "Exercises";
+        private static string allExercisesTableData = "";
         private static string exerciseTableDefinition = "";
 
         static DatabaseHelper()
         {
-            ExerciseItem exerciseItem = new ExerciseItem(); 
+            ExerciseItem exerciseItem = new ExerciseItem();
             List<string> exerciseTableDataList = new List<string>()
             {
                 nameof(exerciseItem.GUIDID) + ", ",
                 nameof(exerciseItem.ExerciseName) + ", ",
                 nameof(exerciseItem.ExerciseTypeId) + ", ",
-                nameof(exerciseItem.IsUsedInRoster) + ", ",
+                //nameof(exerciseItem.RequiredReps) + ", ",
+                //nameof(exerciseItem.RequiredTime) + ", ",
+                //nameof(exerciseItem.RequiredSets) + ", ",
+                //nameof(exerciseItem.RequiredSetsCount) + ", ",
+                nameof(exerciseItem.DueTime) + ", ",
+                nameof(exerciseItem.IsUsedInRoster) + "", //last one doesnt need a comma
                 //Make sure to add in all the others. Remember, there is alot
             };
             foreach (var thing in exerciseTableDataList)
             {
-                exerciseTableData += thing;
+                allExercisesTableData += thing;
             }
             List<string> exerciseTableDefinitionList = new List<string>()
             {
                 nameof(exerciseItem.GUIDID) + " string,",
                 nameof(exerciseItem.ExerciseName) + " string," ,
                 nameof(exerciseItem.ExerciseTypeId) + " int," ,
-                nameof(exerciseItem.IsUsedInRoster) + " bool"  ,
+                nameof(exerciseItem.DueTime) + " string,", //stored as string in UTC time
+                nameof(exerciseItem.IsUsedInRoster) + " bool"  ,//last one doesnt need a comma
                 //Make sure to add in all the others. Remember, there is alot
             };
             foreach (var thing in exerciseTableDefinitionList)
@@ -59,7 +65,7 @@ namespace Exercise_tracker.Helpers
             connection.Close();
         }
 
-        public static bool CreateDatabase(string filePathAndName)
+        public static bool CreateDatabase(string filePathAndName) //not really needed unless i plan to create the database but not use it
         {
             if (!System.IO.File.Exists(filePathAndName))
             {
@@ -76,7 +82,7 @@ namespace Exercise_tracker.Helpers
 
         public static void CreateNewExerciseTable(SQLiteConnection connection)
         {
-            CreateTable(connection, exerciseTableName, exerciseTableDefinition);
+            CreateTable(connection, allExercisesTableName, exerciseTableDefinition);
         }
 
         private static void CreateTable(SQLiteConnection connection, string tableName, string tableDefinition)
@@ -90,11 +96,198 @@ namespace Exercise_tracker.Helpers
             }
             catch (SQLiteException e)
             {
-                //this usually means that the table that is trying to be created already exists
+                //this usually. Ussually... means that the table that is trying to be created already exists
                 Console.WriteLine(e);
             }
-
         }
+
+        public static void AddExercise(SQLiteConnection connection, ExerciseItem exercise)
+        {
+            List<object> exercisesToAdd = new List<object>()
+            {
+                exercise.GUIDID,
+                exercise.ExerciseName,
+                exercise.ExerciseTypeId,
+                exercise.DueTime.ToUniversalTime().ToString("O"),
+                exercise.IsUsedInRoster,
+                
+            };
+
+            AddItem(connection, allExercisesTableName, allExercisesTableData, exercisesToAdd);
+        }
+
+        private static void AddItem(SQLiteConnection connection, string tableName, string tableData, List<object> allItems)
+        {
+            //the order of the items in all items is important!!! it must match the order of things in table data
+            //tableData more or less means columns
+            tableData = tableData.Replace(" ", ""); //remove all spaces (Not really needed if you goven over the entered string but this makes things a bit neater)
+            string[] splitData = tableData.Split(',');
+
+            if (splitData.Length != allItems.Count)
+            {
+                throw new Exception("Table data length and number of items being added must match"); //consider a console out and return?
+            }
+
+            string dataWithAt = "";
+            foreach (var thing in splitData)
+            {
+                dataWithAt += "@" + thing + ", ";
+            }
+            dataWithAt = dataWithAt.Substring(0, dataWithAt.LastIndexOf(",")); //remove the last comma
+
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+
+                    string commandString = string.Format("insert into {0} ({1}) values ({2})", tableName, tableData, dataWithAt);
+                    command.CommandText = commandString;
+
+                    for (int i = 0; i < splitData.Length; i++)
+                    {
+                        command.Parameters.AddWithValue(splitData.ElementAt(i), allItems.ElementAt(i));
+                    }
+                    command.ExecuteNonQuery();
+
+                    transaction.Commit();
+                }
+            }
+        }
+
+        private static void AddMultipleItems(SQLiteConnection connection, string tableName, string tableData, IEnumerable<IEnumerable<object>> allItems) //an enumberable of an enumerable kinda seems like a bad idea...
+        {
+            //the order of the items in all items is important!!! it must match the order of things in table data
+            //tableData more or less means columns
+            tableData = tableData.Replace(" ", ""); //remove all spaces (Not really needed if you goven over the entered string but this makes things a bit neater)
+            string[] splitData = tableData.Split(',');
+
+            foreach (var items in allItems)
+            {
+                if (splitData.Length != items.Count())
+                {
+                    throw new Exception("Table data length and number of items being added must match"); //consider a console out and return?
+                }
+            }
+
+            string dataWithAt = "";
+            foreach (var thing in splitData)
+            {
+                dataWithAt += "@" + thing + ", ";
+            }
+            dataWithAt = dataWithAt.Substring(0, dataWithAt.LastIndexOf(",")); //remove the last comma
+
+
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+
+                    foreach (var items in allItems)
+                    {
+                        string commandString = string.Format("insert into {0} ({1}) values ({2})", tableName, tableData, dataWithAt);
+                        command.CommandText = commandString;
+
+                        for (int i = 0; i < splitData.Length; i++)
+                        {
+                            command.Parameters.AddWithValue(splitData.ElementAt(i), items.ElementAt(i));
+                        }
+                        command.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+            }
+        }
+
+        public static void UpdateExercise(SQLiteConnection connection, ExerciseItem exercise)
+        {
+            List<object> objectsToWrite = new List<object>
+            {
+                exercise.GUIDID,
+                exercise.ExerciseName,
+                exercise.ExerciseTypeId,
+                exercise.DueTime.ToUniversalTime().ToString("O"),
+                exercise.IsUsedInRoster,
+            };
+
+            UpdateItem(connection, allExercisesTableName, allExercisesTableData, objectsToWrite);
+        }
+
+        private static void UpdateItem(SQLiteConnection connection, string tableName, string tableData, List<object> allItems, string whereConditions = "")
+        {
+            //tableData more or less means columns
+            tableData = tableData.Replace(" ", ""); //remove all spaces (Not really needed if you goven over the entered string but this makes things a bit neater)
+            string[] splitData = tableData.Split(',');
+
+            if (splitData.Length != allItems.Count())
+            {
+                throw new Exception("Table data length and number of items being added must match"); //consider a console out and return?
+            }
+
+            string dataWithAt = "";
+            foreach (var thing in splitData)
+            {
+                dataWithAt += thing + " = @" + thing + ", ";
+            }
+            dataWithAt = dataWithAt.Substring(0, dataWithAt.LastIndexOf(",")); //remove the last comma
+
+            if (whereConditions == "") //take care when using this method. Maybe make it good practise to make the ID for all data first just incase. If you are trying to update what you are using in the where conditions, it wont work!!
+            {
+                whereConditions = splitData.FirstOrDefault() + " = @" + splitData.FirstOrDefault();
+            }
+
+            SQLiteTransaction transaction = connection.BeginTransaction();
+            SQLiteCommand command = new SQLiteCommand(connection);
+            command.Transaction = transaction;
+
+            command.CommandText = string.Format("Update {0} set {1} where {2}", tableName, dataWithAt, whereConditions);
+
+            for (int i = 0; i < splitData.Length; i++)
+            {
+                command.Parameters.AddWithValue(splitData.ElementAt(i), allItems.ElementAt(i));
+            }
+            command.ExecuteNonQuery();
+
+            transaction.Commit();
+            command.Dispose();
+            transaction.Dispose();
+        }
+
+        public static List<ExerciseItem> LoadAllExerciseItems(SQLiteConnection connection)
+        {
+            DataTable dt = LoadItems(connection, allExercisesTableName, allExercisesTableData);
+
+            ExerciseItem nameExerciseItem = new ExerciseItem();
+
+            List<ExerciseItem> loadedItems= (from rw in dt.AsEnumerable()
+                select new ExerciseItem
+                {
+                    GUIDID = Convert.ToString(rw[nameof(nameExerciseItem.GUIDID)]),
+                    ExerciseName = Convert.ToString(rw[nameof(nameExerciseItem.ExerciseName)]),
+                    ExerciseTypeId = Convert.ToInt32(rw[nameof(nameExerciseItem.ExerciseTypeId)]),
+                    DueTime = Convert.ToDateTime(rw[nameof(nameExerciseItem.DueTime)]),
+                    IsUsedInRoster = Convert.ToBoolean(rw[nameof(nameExerciseItem.IsUsedInRoster)]),
+                }).ToList();
+
+            return loadedItems;
+        }
+
+        private static DataTable LoadItems(SQLiteConnection connection, string tableName, string tableData, string whereConstraints = "")
+        {
+            //make sure if you use the where constraints, add the "where " to the string
+
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+            adapter.SelectCommand = new SQLiteCommand(connection);
+            adapter.SelectCommand.CommandText = string.Format("select {0} from {1} {2}", tableData, tableName, whereConstraints);
+
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            return dt;
+        }
+
 
     }
 }

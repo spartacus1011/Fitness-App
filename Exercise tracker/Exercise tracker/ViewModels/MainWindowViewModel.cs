@@ -30,6 +30,8 @@ namespace Exercise_tracker.ViewModels
 
         private readonly DispatcherTimer updateTimer = new DispatcherTimer();
 
+        private SQLiteConnection connection;
+
         public MainWindowViewModel()
         {
             dialogService = new DialogService();
@@ -40,28 +42,26 @@ namespace Exercise_tracker.ViewModels
             updateTimer.Interval = new TimeSpan(0, 1, 0); //every 1 minute
             updateTimer.Start();
 
+            string dbPath = rootProgramDirectory + "AllTheExercise.db";
+            connection = DatabaseHelper.ConnectToDatabase(dbPath);
+
             LoadExerciseList();
 
             //DB testing--------------------------------------------
             //DatabaseHelper.CreateTheStrings();
-            string dbPath = rootProgramDirectory + "AllTheExercise.db";
+            
 
-            try
-            {
-                if (File.Exists(dbPath))
-                    File.Delete(dbPath);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return;
-            }
+            //DatabaseHelper.CreateNewExerciseTable(connection);
 
-            SQLiteConnection connection = DatabaseHelper.ConnectToDatabase(dbPath);
-            DatabaseHelper.CreateDatabase(dbPath); //pretty sure these will have the same outcome if the db was already created
+            //ExerciseItem dbtestExerciseItem = new ExerciseItem("I am a guid 000-000-0000--000-0-0") {ExerciseName = "pushups", ExerciseTypeId = 1, IsUsedInRoster = true, DueTime = DateTime.Now};
 
-            DatabaseHelper.CreateNewExerciseTable(connection);
+            //string teststring = dbtestExerciseItem.DueTime.ToUniversalTime().ToString("");
 
+            //DatabaseHelper.AddExercise(connection, dbtestExerciseItem);
+
+            //dbtestExerciseItem.ExerciseName = "im different now";
+
+            //DatabaseHelper.UpdateExercise(connection, dbtestExerciseItem);
         }
 
         private void RebuildList()
@@ -75,7 +75,7 @@ namespace Exercise_tracker.ViewModels
             }
         }
 
-        private void SaveExerciseList() //this destroys the file and starts again. not the best way. good enough for now
+        private void SaveExerciseList() //I should never need a save at all...
         {
             XmlHelper.ToXmlFile(AllExerciseItems, rootProgramDirectory + allExercisesXmlFilename);
         }
@@ -84,7 +84,7 @@ namespace Exercise_tracker.ViewModels
         {
             try
             {
-                AllExerciseItems = XmlHelper.FromXmlFile<List<ExerciseItem>>(rootProgramDirectory + allExercisesXmlFilename);
+                AllExerciseItems = DatabaseHelper.LoadAllExerciseItems(connection);
 
                 foreach (ExerciseItem item in AllExerciseItems)
                 {
@@ -132,6 +132,8 @@ namespace Exercise_tracker.ViewModels
                 }
 
                 AllExerciseItems.Add(dialogViewModel.ItemToAdd);
+                DatabaseHelper.AddExercise(connection, dialogViewModel.ItemToAdd);
+
                 SaveExerciseList();
 
                 if (dialogViewModel.ItemToAdd.IsUsedInRoster)
@@ -189,6 +191,7 @@ namespace Exercise_tracker.ViewModels
         #region Events
         private void OnProcessExit(object sender, EventArgs e)
         {
+            DatabaseHelper.DisconnectFromDatabase(connection);
             SaveExerciseList();
         }
 
