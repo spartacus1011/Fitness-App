@@ -29,7 +29,16 @@ namespace Exercise_tracker.Classes
 
         public static SQLiteConnection ConnectToDatabase(string dbPath)
         {
-            SQLiteConnection connection = new SQLiteConnection("Data Source=" + dbPath + ";" + "Pooling=true;" + "Synchronous=Off;");
+            SQLiteConnection connection;
+            connection = new SQLiteConnection("Data Source=" + dbPath + ";" + "Pooling=true;" + "Synchronous=Off;");
+            connection.Open();
+            return connection;
+        }
+
+        public static SQLiteConnection ConnectToMemoryDatabase()
+        {
+            SQLiteConnection connection;
+            connection = new SQLiteConnection("Data Source=:memory:");
             connection.Open();
             return connection;
         }
@@ -37,6 +46,7 @@ namespace Exercise_tracker.Classes
         public static void DisconnectFromDatabase(SQLiteConnection connection)
         {
             connection.Close();
+            connection.Dispose();
         }
 
         public static void CreateTable(SQLiteConnection connection, string tableName, string tableDefinition)

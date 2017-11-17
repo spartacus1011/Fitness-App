@@ -20,10 +20,8 @@ namespace Exercise_tracker.Helpers
 
         private SQLiteConnection connection;
 
-        public DataStore(string dbPath)
+        public DataStore(string dbPath, bool fakeDB = false)
         {
-
-
             //setup string helper variables
             ExerciseItem exerciseItem = new ExerciseItem();
             List<string> exerciseTableDataList = new List<string>()
@@ -63,15 +61,30 @@ namespace Exercise_tracker.Helpers
             if(exerciseTableDefinitionList.Count != exerciseTableDataList.Count) //to help me find any mistakes that i make
                 throw new Exception("Error: Exercise table data and definitions dont match");
 
-
-            if (!File.Exists(dbPath))
+            if (fakeDB)
             {
-                connection = DatabaseHelper.ConnectToDatabase(dbPath);
-                CreateNewExerciseTable();
-                //CreateNewHistoryTable(connection);
+                connection = DatabaseHelper.ConnectToMemoryDatabase();
+                CreateAllNewTables();
             }
-            connection = DatabaseHelper.ConnectToDatabase(dbPath);
+            else
+            {
+                if (!File.Exists(dbPath))
+                {
+                    connection = DatabaseHelper.ConnectToDatabase(dbPath);
+                    CreateAllNewTables();
+                }
+                else
+                {
+                    connection = DatabaseHelper.ConnectToDatabase(dbPath);
+                }
+            }
+        }
 
+        private void CreateAllNewTables()
+        {
+            CreateNewExerciseTable();
+            //CreateNewHistoryTable();
+            //CreateNewSettingsTable();
         }
 
         public void DisconnectFromDatabase()

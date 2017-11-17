@@ -21,15 +21,13 @@ namespace Exercise_tracker.ViewModels
         public static IDialogService dialogService;
         public List<ExerciseItem> AllExerciseItems = new List<ExerciseItem>();
         public ObservableCollection<ExerciseItem> ExerciseItemsToDo { get; set;}
-
         public ICommand ShowCreateExerciseCommand { get { return new DelegateCommand(ShowCreateExerciseDialog); } }
         public ICommand ShowEditRosterCommand { get { return new DelegateCommand(ShowEditRosterDialog); } }
 
         private readonly string rootProgramDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly string allExercisesXmlFilename = "AllExerciseItemsList.xml";
-
         private readonly DispatcherTimer updateTimer = new DispatcherTimer();
-        private DataStore database;
+        private readonly DataStore database;
 
         public MainWindowViewModel()
         {
@@ -44,25 +42,33 @@ namespace Exercise_tracker.ViewModels
             string dbPath = rootProgramDirectory + "AllTheExercise.db";
             database = new DataStore(dbPath);
             
-
-
             LoadExerciseList();
+        }
 
-            //DB testing--------------------------------------------
-            //DatabaseHelper.CreateTheStrings();
-            
+        //Constructor is for tests only
+        public MainWindowViewModel(Moq.Mock<IDialogService> dialog,bool usePreMadeDB = false, string premadeDBPath = "")
+        {
+            dialogService = dialog.Object;
 
-            
+            AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
+            ExerciseItemsToDo = new ObservableCollection<ExerciseItem>();
 
-            //ExerciseItem dbtestExerciseItem = new ExerciseItem("I am a guid 000-000-0000--000-0-0") {ExerciseName = "pushups", ExerciseTypeId = 1, IsUsedInRoster = true, DueTime = DateTime.Now};
+            updateTimer.Tick += OnUpdateTimerTick;
+            updateTimer.Interval = new TimeSpan(0, 1, 0); //every 1 minute
+            updateTimer.Start();
 
-            //string teststring = dbtestExerciseItem.DueTime.ToUniversalTime().ToString("");
+            if (usePreMadeDB)
+            {
+                if (premadeDBPath == "")
+                    throw new Exception("If using premade database, a path is required");
 
-            //DatabaseHelper.AddExercise(connection, dbtestExerciseItem);
-
-            //dbtestExerciseItem.ExerciseName = "im different now";
-
-            //DatabaseHelper.UpdateExercise(connection, dbtestExerciseItem);
+                database = new DataStore(premadeDBPath);
+                LoadExerciseList();
+            }
+            else //use fake memory DB
+            {
+                database = new DataStore("", true);
+            }
         }
 
         private void RebuildList()
@@ -95,6 +101,9 @@ namespace Exercise_tracker.ViewModels
                     if (item.IsUsedInRoster)
                         ExerciseItemsToDo.Add(item);
                 }
+
+                RebuildList();
+
                 OnUpdateTimerTick(null, null); //first time fire to update everything on load
             }
             catch (Exception ex)
@@ -142,8 +151,6 @@ namespace Exercise_tracker.ViewModels
                     dialogViewModel.ItemToAdd.MarkExerciseCompletedChanged += OnMarkExerciseCompletedChanged; //check that you dont need to explicitly unsub when this item is removed
                     dialogViewModel.ItemToAdd.EditExericse += OnEditExercise;
                     dialogViewModel.ItemToAdd.DeleteExercise += OnDeleteExercise;
-                    //dialogViewModel.ItemToAdd.RequiredSetsCount = dialogViewModel.ItemToAdd.RequiredSets; //set the sets. dont really need an if statement here doesnt matter if 0=0
-                    //the above line seems kinda odd and not necessary. Check to see if it breaks anything
                     ExerciseItemsToDo.Add(dialogViewModel.ItemToAdd);
                     OnUpdateTimerTick(null, null);
                 }

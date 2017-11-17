@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using Exercise_tracker.Classes;
+using Exercise_tracker.Helpers;
 using Exercise_tracker.ViewModels;
 using Exercise_tracker.Views;
 using MvvmDialogs;
@@ -22,29 +23,15 @@ namespace Exercise_tracker
         private MainWindowViewModel mainWindowViewModel;
         private Mock<IDialogService> dialogService;
         private const string SKIP_SETUP = "SkipSetup";
-        string rootProgramDirectory = AppDomain.CurrentDomain.BaseDirectory.TrimEnd("Debug".ToCharArray()); //just make sure to change these locations when the real ones change
-        string allExercisesXmlFilename = "DebugAllExerciseItemsList.xml";
-        private string oldXmlFile = "oldFile.xml";
+        //string rootProgramDirectory = AppDomain.CurrentDomain.BaseDirectory.TrimEnd("Debug".ToCharArray()); //just make sure to change these locations when the real ones change
+        //private string dbname = "DebugAllTheExercise.db";
+        private string dbPath;
 
         [SetUp]
         public void SetUp()
         {
             if (!CheckForSkipSetup())
             {
-                string path = rootProgramDirectory + allExercisesXmlFilename;
-                string oldPath = rootProgramDirectory + oldXmlFile;
-
-
-                if (File.Exists(oldPath))
-                {
-                    File.Delete(oldPath);
-                }
-                if (File.Exists(path)) //keep at least one version of the older xml just incase it is needed for anything
-                    File.Move(path, oldPath);
-                else
-                {
-                    //Console.WriteLine("File Not Found. Ensure test file location is correct. \n File Location: " + path); //not using at the moment
-                }
                 CreateThings();
             }
         }
@@ -52,9 +39,7 @@ namespace Exercise_tracker
         private void CreateThings()
         {
             dialogService = new Mock<IDialogService>();
-            mainWindowViewModel = new MainWindowViewModel();
-            MainWindowViewModel.dialogService = dialogService.Object; //very cheaty, but it works and works well
-            clearExercises();
+            mainWindowViewModel = new MainWindowViewModel(dialogService);
         }
 
         private static bool CheckForSkipSetup()
@@ -64,6 +49,12 @@ namespace Exercise_tracker
 
             bool skipSetup = categories != null && categories.Contains(SKIP_SETUP);
             return skipSetup;
+        }
+
+        [TearDown]
+        public void tearDown()
+        {
+
         }
 
         [Test]
@@ -82,8 +73,9 @@ namespace Exercise_tracker
             Assert.IsTrue(mainWindowViewModel.ExerciseItemsToDo.Any(x => x.ExerciseName == testExerciseName));
         }
 
-        [Test, Timeout(10000)] //I guess this is ok for it to create 1000 exercises in under 10 seconds. Watch this though
+        [Test, Timeout(10000)] 
         //[Ignore("Takes to long. Do check every so often")] //DB is faster!!!
+        //Test is indicative of change ONLY!!! not real read/write times due to test DB being stored in memory
         public void StressTest1()
         {
             string ExerciseBaseName = "Exercise: ";
@@ -107,7 +99,6 @@ namespace Exercise_tracker
             }
             watch2.Stop();
             Console.WriteLine("Total time: " + watch2.Elapsed);
-
         }
 
         [Test]
@@ -128,27 +119,25 @@ namespace Exercise_tracker
         }
 
         [Test]
-        public void EnsureMainListStaysInCorrectOrder()
+        public void EnsureMainListGetsLoadedCorrectly() //should put a whole lot of other db tests here
         {
-            List<ExerciseItem> TestList = new List<ExerciseItem>();
-            TestList.Add(new ExerciseItem() { ExerciseName = "2", DueTime = DateTime.Now - new TimeSpan(1, 0, 0, 0) }); //yesterday
-            TestList.Add(new ExerciseItem() { ExerciseName = "4", DueTime = DateTime.Now + new TimeSpan(1, 0, 0, 0) }); //tomorrow
-            TestList.Add(new ExerciseItem() { ExerciseName = "0", DueTime = DateTime.Now - new TimeSpan(7, 0, 0, 0) }); //last week 
-            TestList.Add(new ExerciseItem() { ExerciseName = "5", DueTime = DateTime.Now + new TimeSpan(7, 0, 0, 0) }); //next week
-            TestList.Add(new ExerciseItem() { ExerciseName = "3", DueTime = DateTime.Now }); //today
+            string tempdbPath = CreateTempDB("CorrectLoadOrder");
 
-            clearExercises();
+            mainWindowViewModel = new MainWindowViewModel(dialogService, true, tempdbPath); //just override the old one
 
-            foreach (var item in TestList)
+            showAndCreateExercise("odd one");
+            mainWindowViewModel.ExerciseItemsToDo.FirstOrDefault(x => x.ExerciseName == "odd one").DueTime = DateTime.Now + new TimeSpan(365,0,0,0);
+            CompleteExercise(mainWindowViewModel.ExerciseItemsToDo.FirstOrDefault(x => x.ExerciseName == "odd one"));
+            
+            Console.WriteLine("Exercise order:");
+            foreach (var ex in mainWindowViewModel.ExerciseItemsToDo)
             {
-                mainWindowViewModel.ExerciseItemsToDo.Add(item);
+                Console.WriteLine(ex.ExerciseName);
             }
 
-            showAndCreateExercise("1", dueTime: DateTime.Now - new TimeSpan(2, 0, 0, 0)); //2 days ago //This should cause the list to re order
-
-            for (int i = 0; i <= TestList.Count; i++)
+            for (int i = 0; i < mainWindowViewModel.ExerciseItemsToDo.Count -1; i++) //the -1 is to exclude "odd one"
             {
-                Assert.AreEqual(mainWindowViewModel.ExerciseItemsToDo.ElementAt(i).ExerciseName, i.ToString());
+                Assert.AreEqual(i.ToString(), mainWindowViewModel.ExerciseItemsToDo.ElementAt(i).ExerciseName);
             }
 
         }
@@ -172,27 +161,10 @@ namespace Exercise_tracker
         [Ignore("Need new tests to verify the database!!")]
         public void LoadAndSaveTestXML()
         {
-            string path = rootProgramDirectory + allExercisesXmlFilename;
-
-            if (File.Exists(path))
-                File.Delete(path);
-            else
-            {
-                //Console.WriteLine("File Not Found. Ensure test file location is correct. \n File Location: " + path); //not using at the moment
-            }
-            CreateThings();
-
             showAndCreateExercise("Test1");
 
             Assert.AreEqual(1, mainWindowViewModel.ExerciseItemsToDo.Count);
             Assert.AreEqual("Test1", mainWindowViewModel.ExerciseItemsToDo.ElementAt(0).ExerciseName);
-
-            if (File.Exists(path))
-                File.Delete(path);
-            else
-            {
-                Assert.Fail("There needs to be a saved file at this point Ensure test file location is correct. \n File Location: " + path);
-            }
 
             mainWindowViewModel = null;
             mainWindowViewModel = new MainWindowViewModel();
@@ -299,10 +271,19 @@ namespace Exercise_tracker
             exerciseItem.DeleteThisExerciseCommand.Execute(null);
         }
 
-        private void clearExercises()
+        private string CreateTempDB(string fileName)
         {
-            //need to implement a real method to delete them first!
-            mainWindowViewModel.ExerciseItemsToDo.Clear();
+            string dbPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)));
+            dbPath += "\\TestDatabases\\" + fileName + ".db";
+            dbPath = dbPath.TrimStart(("file:\\").ToCharArray());
+            string dbCopyPath = dbPath + "Copy.db";
+
+            if(File.Exists(dbCopyPath))
+                File.Delete(dbCopyPath);
+
+            File.Copy(dbPath, dbCopyPath);
+
+            return dbCopyPath;
         }
 
     }
