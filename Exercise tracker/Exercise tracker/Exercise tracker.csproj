@@ -120,6 +120,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\HistoryWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -139,6 +143,7 @@
     <Compile Include="Tests.cs" />
     <Compile Include="ViewModels\CreateExerciseViewModel.cs" />
     <Compile Include="ViewModels\EditRosterViewModel.cs" />
+    <Compile Include="ViewModels\HistoryPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RosterListItemViewModel.cs" />
     <Compile Include="Views\CreateExerciseView.xaml.cs">
@@ -152,6 +157,9 @@
     </Compile>
     <Compile Include="Views\ExerciseRosterListViewItem.xaml.cs">
       <DependentUpon>ExerciseRosterListViewItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HistoryWindowView.xaml.cs">
+      <DependentUpon>HistoryWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

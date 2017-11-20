@@ -23,6 +23,7 @@ namespace Exercise_tracker.ViewModels
         public ObservableCollection<ExerciseItem> ExerciseItemsToDo { get; set;}
         public ICommand ShowCreateExerciseCommand { get { return new DelegateCommand(ShowCreateExerciseDialog); } }
         public ICommand ShowEditRosterCommand { get { return new DelegateCommand(ShowEditRosterDialog); } }
+        public ICommand ShowHistoryPageCommand { get { return new DelegateCommand(ShowHistoryPageDialog); } }
 
         private readonly string rootProgramDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly string allExercisesXmlFilename = "AllExerciseItemsList.xml";
@@ -193,6 +194,19 @@ namespace Exercise_tracker.ViewModels
                 //RebuildList();
             }
         }
+
+        private void ShowHistoryPageDialog()
+        {
+            var dialogViewModel = new HistoryPageViewModel();
+
+            bool? success = dialogService.ShowDialog<HistoryWindowView>(this, dialogViewModel);
+
+            if (success == true)
+            {
+            }
+        }
+
+
         #endregion
 
 
@@ -205,7 +219,9 @@ namespace Exercise_tracker.ViewModels
 
         void OnMarkExerciseCompletedChanged(object sender, EventArgs e)
         {
-            database.UpdateDueTime(sender as ExerciseItem);
+            ExerciseItem ex = sender as ExerciseItem;
+            database.UpdateDueTime(ex);
+            database.AddHistoryItem(new ExerciseHistoryItem(ex.GUIDID, ex.IsRepetitions, DateTime.Now));
             RebuildList();
         }
 

@@ -6,30 +6,21 @@ using System.Threading.Tasks;
 
 namespace Exercise_tracker.Classes
 {
-    public class ExerciseHistoryItem //I think this way of implementing things would be very difficult to work
+    public class ExerciseHistoryItem 
     {
-        //yeah, this might not be needed at all!
-        public int TotalCount { get; set; }
-        public List<DateTime> CompleteDateTimes { get; set; }
+        public string ExerciseGUIDID { get; set; } 
+        public bool IsRep { get; set; } //is rep or set I.E partial or full 
+        public DateTime TimeCompleted { get; set; }
+        //public string PlaceCompleted {get;set;} //future plans?
 
-        public string GUIDID { get { return guidid; } } //this is probably not needed at all
-        private readonly string guidid;
-
-        public ExerciseHistoryItem(string guidid) //i dont like putting something in the constructor but it might be the only way. This would work fine if i do this as a database...
+        public ExerciseHistoryItem(string guidid, bool isRep, DateTime timeCompleted) //i dont like putting something in the constructor but it might be the only way. This would work fine if i do this as a database...
         {
-            this.guidid = guidid;
+            ExerciseGUIDID = guidid;
+            IsRep = isRep;
+            TimeCompleted = timeCompleted;
         }
 
-        public void CompleteExercise()
-        {
-            TotalCount++;
-            CompleteDateTimes.Add(DateTime.Now);
-        }
 
-        public void CompleteRep()
-        {
-
-        }
 
     }
 }

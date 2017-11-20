@@ -139,7 +139,6 @@ namespace Exercise_tracker
             {
                 Assert.AreEqual(i.ToString(), mainWindowViewModel.ExerciseItemsToDo.ElementAt(i).ExerciseName);
             }
-
         }
 
         [Test]

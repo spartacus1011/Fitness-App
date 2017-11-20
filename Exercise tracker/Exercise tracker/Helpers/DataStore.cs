@@ -16,7 +16,11 @@ namespace Exercise_tracker.Helpers
     {
         private readonly string allExercisesTableName = "Exercises";
         private readonly string allExercisesTableData = "";
-        private readonly string exerciseTableDefinition = "";
+        private readonly string allexercisesTableDefinition = "";
+
+        private readonly string exerciseHistoryTableName = "Exercise_History";
+        private readonly string exerciseHistoryTableData = "";
+        private readonly string exerciseHistoryTableDefinition = "";
 
         private SQLiteConnection connection;
 
@@ -56,10 +60,33 @@ namespace Exercise_tracker.Helpers
             };
             foreach (var thing in exerciseTableDefinitionList)
             {
-                exerciseTableDefinition += thing;
+                allexercisesTableDefinition += thing;
             }
             if(exerciseTableDefinitionList.Count != exerciseTableDataList.Count) //to help me find any mistakes that i make
                 throw new Exception("Error: Exercise table data and definitions dont match");
+
+            ExerciseHistoryItem historyItem = new ExerciseHistoryItem("",false, DateTime.Now); //dummy history item for naming
+            List<string> exerciseHistoryTableDataList = new List<string>()
+            {
+                nameof(historyItem.ExerciseGUIDID) + ", ",
+                nameof(historyItem.IsRep) + ", ",
+                nameof(historyItem.TimeCompleted) + "",
+            };
+            foreach (var thing in exerciseHistoryTableDataList)
+            {
+                exerciseHistoryTableData += thing;
+            }
+            List<string> exerciseHistoryTableDefinitionList = new List<string>()
+            {
+                nameof(historyItem.ExerciseGUIDID) + " string, ",
+                nameof(historyItem.IsRep) + " bool, ",
+                nameof(historyItem.TimeCompleted) + " string",
+            };
+            foreach (var thing in exerciseHistoryTableDefinitionList)
+            {
+                exerciseHistoryTableDefinition += thing;
+            }
+
 
             if (fakeDB)
             {
@@ -83,7 +110,7 @@ namespace Exercise_tracker.Helpers
         private void CreateAllNewTables()
         {
             CreateNewExerciseTable();
-            //CreateNewHistoryTable();
+            CreateNewHistoryTable();
             //CreateNewSettingsTable();
         }
 
@@ -92,9 +119,14 @@ namespace Exercise_tracker.Helpers
             DatabaseHelper.DisconnectFromDatabase(connection);
         }
 
-        public void CreateNewExerciseTable()
+        private void CreateNewExerciseTable()
         {
-            DatabaseHelper.CreateTable(connection, allExercisesTableName, exerciseTableDefinition);
+            DatabaseHelper.CreateTable(connection, allExercisesTableName, allexercisesTableDefinition);
+        }
+
+        private void CreateNewHistoryTable()
+        {
+            DatabaseHelper.CreateTable(connection, exerciseHistoryTableName, exerciseHistoryTableDefinition);
         }
 
         public void AddExercise(ExerciseItem exercise)
@@ -147,6 +179,17 @@ namespace Exercise_tracker.Helpers
 
         }
 
+        public void AddHistoryItem(ExerciseHistoryItem item)
+        {
+            List<object> objectsToWrite = new List<object>()
+            {
+                item.ExerciseGUIDID,
+                item.IsRep,
+                item.TimeCompleted.ToUniversalTime().ToString("O")
+            };
+            DatabaseHelper.AddItem(connection, exerciseHistoryTableName, exerciseHistoryTableData, objectsToWrite);
+        }
+
         public List<ExerciseItem> LoadAllExerciseItems()
         {
             DataTable dt = DatabaseHelper.LoadItems(connection, allExercisesTableName, allExercisesTableData);
@@ -165,7 +208,5 @@ namespace Exercise_tracker.Helpers
 
             return loadedItems;
         }
-
-
     }
 }
