@@ -221,21 +221,20 @@ namespace Exercise_tracker
             dialogService
                 .Setup(mock => mock.ShowDialog<EditRosterView>(mainWindowViewModel, It.IsAny<EditRosterViewModel>()))
                 .Returns(true)
-                .Callback((INotifyPropertyChanged ownerViewModel, EditRosterViewModel addExerciseViewModel) =>
+                .Callback((INotifyPropertyChanged ownerViewModel, EditRosterViewModel editExerciseViewModel) =>
                 {
                     foreach (var item in itemsToAdd)
                     {
                         //the possible null exception is good as it means something has gone wrong 
-                        addExerciseViewModel.RosterItems.FirstOrDefault(x => x.GUIDID == item.GUIDID).ToggleAddToRosterCommand.Execute(null);
+                        editExerciseViewModel.RosterItems.FirstOrDefault(x => x.GUIDID == item.GUIDID).ToggleAddToRosterCommand.Execute(null);
                     }
 
                     foreach (var item in itemsToRemove)
                     {
                         //the possible null exception is good as it means something has gone wrong 
-                        addExerciseViewModel.RosterItems.FirstOrDefault(x => x.GUIDID == item.GUIDID).ToggleAddToRosterCommand.Execute(null);
+                        editExerciseViewModel.RosterItems.FirstOrDefault(x => x.GUIDID == item.GUIDID).ToggleAddToRosterCommand.Execute(null);
                     }
-                }
-                   );
+                });
 
             mainWindowViewModel.ShowEditRosterCommand.Execute(null);
         }

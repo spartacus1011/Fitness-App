@@ -56,7 +56,7 @@ namespace Exercise_tracker.Classes
                 string createCommand = String.Format("create table {0} ({1})", tableName, tableDefinition);
                 SQLiteCommand create = new SQLiteCommand(createCommand, connection);
                 create.ExecuteNonQuery();
-                create.Dispose(); //putting the dispose inside the try seems like a bad idea but how else would you do it?
+                create.Dispose(); 
             }
             catch (SQLiteException e)
             {
@@ -150,6 +150,28 @@ namespace Exercise_tracker.Classes
             }
         }
 
+        public static void DeleteItem(SQLiteConnection connection, string tableName, string idColumnName, string id)
+        {
+            string whereCondition = string.Format("{0} = @id", idColumnName);
+
+            using (SQLiteTransaction transaction = connection.BeginTransaction())
+            {
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    command.Transaction = transaction;
+                    command.CommandText = string.Format("Delete from {0} where {1}", tableName, whereCondition);
+                    command.Parameters.AddWithValue("id", id);
+                    command.ExecuteNonQuery();
+                }
+                transaction.Commit();
+            }
+        }
+
+        public static void DeleteMultipleItems(SQLiteConnection connection, string tableName, string idColumnName, List<string> ids)
+        {
+            throw new NotImplementedException("Ill do this someday. Might be handy if i want to clear everything");
+        }
+
         public static void UpdateItem(SQLiteConnection connection, string tableName, string tableData, List<object> allItems, string whereConditions = "")
         {
             //tableData more or less means columns
@@ -190,17 +212,41 @@ namespace Exercise_tracker.Classes
             transaction.Dispose();
         }
 
-        public static DataTable LoadItems(SQLiteConnection connection, string tableName, string tableData, string whereConstraints = "")
+        public static DataTable LoadItems(SQLiteConnection connection, string tableName, string tableData, List<string> constraintNames = null, List<object> constraints = null)
         {
-            //make sure if you use the where constraints, add the "where " to the string
+            string whereConstraints = "";
 
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
-            adapter.SelectCommand = new SQLiteCommand(connection);
-            adapter.SelectCommand.CommandText = string.Format("select {0} from {1} {2}", tableData, tableName, whereConstraints);
+            if (constraintNames != null && constraints != null)
+            {
+                if (constraintNames.Count != constraints.Count)
+                    throw new Exception("If there is a constraint named, it must also have that variable and vica verca.");
+
+                whereConstraints = "where";
+                foreach (string constraintName in constraintNames)
+                {
+                    whereConstraints += string.Format(" {0} = @{0},", constraintName);
+                }
+
+                whereConstraints = whereConstraints.Substring(0, whereConstraints.LastIndexOf(",")); //remove the last comma
+            }
 
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            using (SQLiteDataAdapter adapter = new SQLiteDataAdapter())
+            {
+                adapter.SelectCommand = new SQLiteCommand(connection);
+                adapter.SelectCommand.CommandText = string.Format("select {0} from {1} {2}", tableData, tableName, whereConstraints);
 
+                if (whereConstraints != "")
+                {
+                    for (int i = 0; i < constraintNames.Count; i++)
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue(constraintNames.ElementAt(i), constraints.ElementAt(i));
+                    }
+                }
+
+                
+                adapter.Fill(dt);
+            }
             return dt;
         }
 

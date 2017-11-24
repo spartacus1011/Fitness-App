@@ -28,7 +28,7 @@ namespace Exercise_tracker.ViewModels
         private readonly string rootProgramDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly string allExercisesXmlFilename = "AllExerciseItemsList.xml";
         private readonly DispatcherTimer updateTimer = new DispatcherTimer();
-        private readonly DataStore database;
+        private readonly DataStore dataStore;
 
         public MainWindowViewModel()
         {
@@ -41,9 +41,11 @@ namespace Exercise_tracker.ViewModels
             updateTimer.Start();
 
             string dbPath = rootProgramDirectory + "AllTheExercise.db";
-            database = new DataStore(dbPath);
+            dataStore = new DataStore(dbPath);
             
             LoadExerciseList();
+
+            RebuildList();
         }
 
         //Constructor is for tests only
@@ -63,12 +65,12 @@ namespace Exercise_tracker.ViewModels
                 if (premadeDBPath == "")
                     throw new Exception("If using premade database, a path is required");
 
-                database = new DataStore(premadeDBPath);
+                dataStore = new DataStore(premadeDBPath);
                 LoadExerciseList();
             }
             else //use fake memory DB
             {
-                database = new DataStore("", true);
+                dataStore = new DataStore("", true);
             }
         }
 
@@ -92,7 +94,7 @@ namespace Exercise_tracker.ViewModels
         {
             try
             {
-                AllExerciseItems = database.LoadAllExerciseItems();
+                AllExerciseItems = dataStore.LoadAllExerciseItems();
 
                 foreach (ExerciseItem item in AllExerciseItems)
                 {
@@ -143,7 +145,7 @@ namespace Exercise_tracker.ViewModels
                 }
 
                 AllExerciseItems.Add(dialogViewModel.ItemToAdd);
-                database.AddExercise(dialogViewModel.ItemToAdd);
+                dataStore.AddExercise(dialogViewModel.ItemToAdd);
 
                 SaveExerciseList();
 
@@ -173,6 +175,9 @@ namespace Exercise_tracker.ViewModels
                 {
                     ExerciseItem exerciseItem = temp.FirstOrDefault(x => x.GUIDID == rosterItem.GUIDID);
                     exerciseItem.IsUsedInRoster = rosterItem.IsUsedInRoster;
+
+                    dataStore.UpdateIsUsedInRoster(exerciseItem);
+
                     RaisePropertyChangedEvent("IsUsedInRoster");
                     if (!temp.Contains(exerciseItem))
                     {
@@ -186,18 +191,12 @@ namespace Exercise_tracker.ViewModels
             }
             else //revert it to the way it was
             {
-                //foreach (ExerciseItem item in temp)
-                //{
-                //    ExerciseItemsToDo.Add(item);
-                //}
-
-                //RebuildList();
             }
         }
 
         private void ShowHistoryPageDialog()
         {
-            var dialogViewModel = new HistoryPageViewModel();
+            var dialogViewModel = new HistoryPageViewModel(dataStore);
 
             bool? success = dialogService.ShowDialog<HistoryWindowView>(this, dialogViewModel);
 
@@ -213,15 +212,15 @@ namespace Exercise_tracker.ViewModels
         #region Events
         private void OnProcessExit(object sender, EventArgs e)
         {
-            database.DisconnectFromDatabase();
+            dataStore.DisconnectFromDatabase();
             SaveExerciseList();
         }
 
         void OnMarkExerciseCompletedChanged(object sender, EventArgs e)
         {
             ExerciseItem ex = sender as ExerciseItem;
-            database.UpdateDueTime(ex);
-            database.AddHistoryItem(new ExerciseHistoryItem(ex.GUIDID, ex.IsRepetitions, DateTime.Now));
+            dataStore.UpdateDueTime(ex);
+            dataStore.AddHistoryItem(new ExerciseHistoryItem(ex.GUIDID, ex.IsRepetitions, DateTime.Now));
             RebuildList();
         }
 
@@ -230,6 +229,7 @@ namespace Exercise_tracker.ViewModels
             ExerciseItem itemToDelete = sender as ExerciseItem;
             ExerciseItemsToDo.Remove(itemToDelete);
             AllExerciseItems.Remove(itemToDelete);
+            dataStore.DeleteExercise(itemToDelete);
             RebuildList();
         }
 
@@ -244,8 +244,7 @@ namespace Exercise_tracker.ViewModels
 
             if (success == true)
             {
-                //SaveExerciseList(); //might be a bad idea saving here. only time will tell
-                database.UpdateExercise(dialogViewModel.ItemToAdd);
+                dataStore.UpdateExercise(dialogViewModel.ItemToAdd);
 
                 if (dialogViewModel.ItemToAdd.IsUsedInRoster)
                 {

@@ -24,21 +24,26 @@ namespace Exercise_tracker.Helpers
 
         private SQLiteConnection connection;
 
+        //dummy items for naming purposes
+        private readonly ExerciseItem nameExerciseItem = new ExerciseItem();
+        private readonly ExerciseHistoryItem nameHistoryItem = new ExerciseHistoryItem("", false, DateTime.Now); 
+
+
         public DataStore(string dbPath, bool fakeDB = false)
         {
             //setup string helper variables
-            ExerciseItem exerciseItem = new ExerciseItem();
+            
             List<string> exerciseTableDataList = new List<string>()
             {
-                nameof(exerciseItem.GUIDID) + ", ",
-                nameof(exerciseItem.ExerciseName) + ", ",
-                nameof(exerciseItem.ExerciseTypeId) + ", ",
-                nameof(exerciseItem.RequiredReps) + ", ",
-                nameof(exerciseItem.RequiredTime) + ", ",
-                nameof(exerciseItem.RequiredSets) + ", ",
-                nameof(exerciseItem.RequiredSetsCount) + ", ",
-                nameof(exerciseItem.DueTime) + ", ", //stored as string in UTC time
-                nameof(exerciseItem.IsUsedInRoster) + "", //last one doesnt need a comma
+                nameof(nameExerciseItem.GUIDID) + ", ",
+                nameof(nameExerciseItem.ExerciseName) + ", ",
+                nameof(nameExerciseItem.ExerciseTypeId) + ", ",
+                nameof(nameExerciseItem.RequiredReps) + ", ",
+                nameof(nameExerciseItem.RequiredTime) + ", ",
+                nameof(nameExerciseItem.RequiredSets) + ", ",
+                nameof(nameExerciseItem.RequiredSetsCount) + ", ",
+                nameof(nameExerciseItem.DueTime) + ", ", //stored as string in UTC time
+                nameof(nameExerciseItem.IsUsedInRoster) + "", //last one doesnt need a comma
                 //Make sure to add in all the others. Remember, there is alot
             };
             foreach (var thing in exerciseTableDataList)
@@ -47,15 +52,15 @@ namespace Exercise_tracker.Helpers
             }
             List<string> exerciseTableDefinitionList = new List<string>()
             {
-                nameof(exerciseItem.GUIDID) + " string,",
-                nameof(exerciseItem.ExerciseName) + " string," ,
-                nameof(exerciseItem.ExerciseTypeId) + " int," ,
-                nameof(exerciseItem.RequiredReps) + " int,",
-                nameof(exerciseItem.RequiredTime) + " int, ",
-                nameof(exerciseItem.RequiredSets) + " int, ",
-                nameof(exerciseItem.RequiredSetsCount) + " int, ",
-                nameof(exerciseItem.DueTime) + " string,", //stored as string in UTC time
-                nameof(exerciseItem.IsUsedInRoster) + " bool"  ,//last one doesnt need a comma
+                nameof(nameExerciseItem.GUIDID) + " string,",
+                nameof(nameExerciseItem.ExerciseName) + " string," ,
+                nameof(nameExerciseItem.ExerciseTypeId) + " int," ,
+                nameof(nameExerciseItem.RequiredReps) + " int,",
+                nameof(nameExerciseItem.RequiredTime) + " int, ",
+                nameof(nameExerciseItem.RequiredSets) + " int, ",
+                nameof(nameExerciseItem.RequiredSetsCount) + " int, ",
+                nameof(nameExerciseItem.DueTime) + " string,", //stored as string in UTC time
+                nameof(nameExerciseItem.IsUsedInRoster) + " bool"  ,//last one doesnt need a comma
                 //Make sure to add in all the others. Remember, there is alot
             };
             foreach (var thing in exerciseTableDefinitionList)
@@ -65,12 +70,11 @@ namespace Exercise_tracker.Helpers
             if(exerciseTableDefinitionList.Count != exerciseTableDataList.Count) //to help me find any mistakes that i make
                 throw new Exception("Error: Exercise table data and definitions dont match");
 
-            ExerciseHistoryItem historyItem = new ExerciseHistoryItem("",false, DateTime.Now); //dummy history item for naming
             List<string> exerciseHistoryTableDataList = new List<string>()
             {
-                nameof(historyItem.ExerciseGUIDID) + ", ",
-                nameof(historyItem.IsRep) + ", ",
-                nameof(historyItem.TimeCompleted) + "",
+                nameof(nameHistoryItem.ExerciseGUIDID) + ", ",
+                nameof(nameHistoryItem.IsRep) + ", ",
+                nameof(nameHistoryItem.TimeCompleted) + "",
             };
             foreach (var thing in exerciseHistoryTableDataList)
             {
@@ -78,9 +82,9 @@ namespace Exercise_tracker.Helpers
             }
             List<string> exerciseHistoryTableDefinitionList = new List<string>()
             {
-                nameof(historyItem.ExerciseGUIDID) + " string, ",
-                nameof(historyItem.IsRep) + " bool, ",
-                nameof(historyItem.TimeCompleted) + " string",
+                nameof(nameHistoryItem.ExerciseGUIDID) + " string, ",
+                nameof(nameHistoryItem.IsRep) + " bool, ",
+                nameof(nameHistoryItem.TimeCompleted) + " string",
             };
             foreach (var thing in exerciseHistoryTableDefinitionList)
             {
@@ -166,6 +170,11 @@ namespace Exercise_tracker.Helpers
             DatabaseHelper.UpdateItem(connection, allExercisesTableName, allExercisesTableData, objectsToWrite);
         }
 
+        public void DeleteExercise(ExerciseItem exercise)
+        {
+            DatabaseHelper.DeleteItem(connection, allExercisesTableName, nameof(exercise.GUIDID), exercise.GUIDID);
+        }
+
         public void UpdateDueTime(ExerciseItem exercise)
         {
             List<object> objectsToWrite = new List<object>()
@@ -176,7 +185,18 @@ namespace Exercise_tracker.Helpers
 
             string DueTimeData = nameof(exercise.GUIDID) + ", " + nameof(exercise.DueTime);
             DatabaseHelper.UpdateItem(connection, allExercisesTableName,DueTimeData,objectsToWrite);
+        }
 
+        public void UpdateIsUsedInRoster(ExerciseItem exercise)
+        {
+            List<object> objectsToWrite = new List<object>()
+            {
+                exercise.GUIDID,
+                exercise.IsUsedInRoster,
+            };
+
+            string IsUsedInRosterData = nameof(exercise.GUIDID) + ", " + nameof(exercise.IsUsedInRoster);
+            DatabaseHelper.UpdateItem(connection, allExercisesTableName, IsUsedInRosterData, objectsToWrite);
         }
 
         public void AddHistoryItem(ExerciseHistoryItem item)
@@ -194,8 +214,6 @@ namespace Exercise_tracker.Helpers
         {
             DataTable dt = DatabaseHelper.LoadItems(connection, allExercisesTableName, allExercisesTableData);
 
-            ExerciseItem nameExerciseItem = new ExerciseItem();
-
             List<ExerciseItem> loadedItems= (from rw in dt.AsEnumerable()
                 select new ExerciseItem
                 {
@@ -207,6 +225,22 @@ namespace Exercise_tracker.Helpers
                 }).ToList();
 
             return loadedItems;
+        }
+
+        public List<ExerciseHistoryItem> LoadExerciseHistory(ExerciseItem exercise)
+        {
+            string guidname = nameof(nameHistoryItem.ExerciseGUIDID);
+            
+            DataTable dt = DatabaseHelper.LoadItems(connection, exerciseHistoryTableName, exerciseHistoryTableData, new List<string>(){guidname}, new List<object>(){exercise.GUIDID});
+
+            List<ExerciseHistoryItem> history= (from rw in dt.AsEnumerable()
+                select new ExerciseHistoryItem(
+                    Convert.ToString(rw[nameof(nameHistoryItem.ExerciseGUIDID)]), 
+                    Convert.ToBoolean(rw[nameof(nameHistoryItem.IsRep)]), 
+                    Convert.ToDateTime(rw[nameof(nameHistoryItem.TimeCompleted)]))
+                ).ToList();
+
+            return history;
         }
     }
 }
