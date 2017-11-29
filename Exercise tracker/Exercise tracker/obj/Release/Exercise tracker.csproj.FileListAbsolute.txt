@@ -113,3 +113,5 @@ C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exerc
 C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Release\Exercise tracker.csproj.CoreCompileInputs.cache
 C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Release\Exercise tracker.exe
 C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Release\Exercise tracker.pdb
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Release\Views\OneTimeExerciseView.g.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Release\Views\OneTimeExerciseView.baml

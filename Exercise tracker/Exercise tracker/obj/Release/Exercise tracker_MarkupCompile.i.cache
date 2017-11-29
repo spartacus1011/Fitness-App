@@ -10,11 +10,11 @@ none
 false
 TRACE
 C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\App.xaml
-6530546401
+71541176890
 7-439125107
-28-290601595
+301761203672
 32-721363378
-Views\CreateExerciseView.xaml;Views\EditRosterView.xaml;Views\ExerciseListBoxItemView.xaml;Views\ExerciseRosterListViewItem.xaml;Views\HistoryWindowView.xaml;Views\MainWindow.xaml;
+Views\CreateExerciseView.xaml;Views\EditRosterView.xaml;Views\ExerciseListBoxItemView.xaml;Views\ExerciseRosterListViewItem.xaml;Views\HistoryWindowView.xaml;Views\MainWindow.xaml;Views\OneTimeExerciseView.xaml;
 
-True
+False
 

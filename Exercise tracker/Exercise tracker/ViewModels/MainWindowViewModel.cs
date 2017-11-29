@@ -24,6 +24,7 @@ namespace Exercise_tracker.ViewModels
         public ICommand ShowCreateExerciseCommand { get { return new DelegateCommand(ShowCreateExerciseDialog); } }
         public ICommand ShowEditRosterCommand { get { return new DelegateCommand(ShowEditRosterDialog); } }
         public ICommand ShowHistoryPageCommand { get { return new DelegateCommand(ShowHistoryPageDialog); } }
+        public ICommand ShowOneTimeExercisePageCommand { get { return new DelegateCommand(ShowOneTimeExercisePageDialog);} }
 
         private readonly string rootProgramDirectory = AppDomain.CurrentDomain.BaseDirectory;
         private readonly string allExercisesXmlFilename = "AllExerciseItemsList.xml";
@@ -199,6 +200,17 @@ namespace Exercise_tracker.ViewModels
             var dialogViewModel = new HistoryPageViewModel(dataStore);
 
             bool? success = dialogService.ShowDialog<HistoryWindowView>(this, dialogViewModel);
+
+            if (success == true)
+            {
+            }
+        }
+
+        private void ShowOneTimeExercisePageDialog()
+        {
+            var dialogViewModel = new OneTimeExerciseViewModel();
+
+            bool? success = dialogService.ShowDialog<OneTimeExerciseView>(this, dialogViewModel);
 
             if (success == true)
             {

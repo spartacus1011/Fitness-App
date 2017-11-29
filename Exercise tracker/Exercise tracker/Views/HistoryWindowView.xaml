@@ -16,9 +16,9 @@
     
     <DockPanel>    
         <TextBlock Text="History" DockPanel.Dock="Top" Foreground="White" FontSize="30" HorizontalAlignment="Center"></TextBlock>
-        <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding AvailableGraphs}" SelectedItem="{Binding SelectedGraph}" SelectedValuePath="Value" DisplayMemberPath="Key" ></ComboBox>
+        <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding AvailableGraphs}" SelectedItem="{Binding SelectedGraph}" SelectedValuePath="Value" DisplayMemberPath="Key" Margin="10,10" ></ComboBox>
         <Grid DockPanel.Dock="Bottom">
-        <lvc:CartesianChart Series="{Binding GraphData}" >
+        <lvc:CartesianChart Series="{Binding GraphData}" Margin="10,10" >
             <lvc:CartesianChart.AxisY>
                     <lvc:Axis Title="{Binding YAxisTitle}" MinValue="0.0" FontSize="20">
                 </lvc:Axis>
