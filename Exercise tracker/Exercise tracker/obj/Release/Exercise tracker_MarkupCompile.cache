@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\obj\Release\
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\obj\Release\
 Exercise_tracker
 none
 false
 TRACE
-D:\SourceTreeProjects\Exercise tracker\Exercise tracker\Exercise tracker\App.xaml
-5-1291249310
-
-171467072900
-201170711279
-Views\CreateExerciseView.xaml;Views\EditRosterView.xaml;Views\ExerciseListBoxItemView.xaml;Views\ExerciseRosterListViewItem.xaml;Views\MainWindow.xaml;
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\Exercise tracker\App.xaml
+6530546401
+7-439125107
+241356789487
+32-721363378
+Views\CreateExerciseView.xaml;Views\EditRosterView.xaml;Views\ExerciseListBoxItemView.xaml;Views\ExerciseRosterListViewItem.xaml;Views\HistoryWindowView.xaml;Views\MainWindow.xaml;
 
 False
 

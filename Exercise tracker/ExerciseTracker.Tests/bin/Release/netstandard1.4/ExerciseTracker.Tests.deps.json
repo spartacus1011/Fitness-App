@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v1.4/",
-    "signature": "ce1b28ba713fa9c220de11ae125cab6e71b08543"
+    "signature": "eee0cc4ecc271bac5d3241ec2f94e515a6215e27"
   },
   "compilationOptions": {},
   "targets": {
@@ -12,7 +12,8 @@
           "Moq": "4.7.145",
           "NETStandard.Library": "1.6.1",
           "NUnit": "3.8.1",
-          "NUnit3TestAdapter": "3.9.0"
+          "NUnit3TestAdapter": "3.9.0",
+          "System.Data.SQLite": "1.0.106"
         },
         "runtime": {
           "ExerciseTracker.Tests.dll": {}
@@ -261,6 +262,7 @@
           "System.Text.Encoding": "4.3.0"
         }
       },
+      "system.data.sqlite/1.0.106": {},
       "system.diagnostics.debug/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -993,6 +995,13 @@
       "sha512": "sha512-DHDrIxiqk1h03m6khKWV2X8p/uvN79rgSqpilL6uzpmSfxfU5ng8VcPtW4qsDsQDHiTv6IPV9TmD5M/vElPNLg==",
       "path": "system.console/4.3.0",
       "hashPath": "system.console.4.3.0.nupkg.sha512"
+    },
+    "system.data.sqlite/1.0.106": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7BLZMo2NrV01kJIEdDAgCdDs3f0DPkd1gmAjURo0ziN00q+KWWX2S5RoqTQm0LbbBUe2ycUSiiDYIIPip56+kw==",
+      "path": "system.data.sqlite/1.0.106",
+      "hashPath": "system.data.sqlite.1.0.106.nupkg.sha512"
     },
     "system.diagnostics.debug/4.3.0": {
       "type": "package",

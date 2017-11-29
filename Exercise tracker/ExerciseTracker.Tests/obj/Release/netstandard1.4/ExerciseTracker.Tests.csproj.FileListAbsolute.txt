@@ -6,3 +6,11 @@ D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\ob
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\obj\Release\netstandard1.4\ExerciseTracker.Tests.AssemblyInfo.cs
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\obj\Release\netstandard1.4\ExerciseTracker.Tests.dll
 D:\SourceTreeProjects\Exercise tracker\Exercise tracker\ExerciseTracker.Tests\obj\Release\netstandard1.4\ExerciseTracker.Tests.pdb
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\ExerciseTracker.Tests\bin\Release\netstandard1.4\ExerciseTracker.Tests.deps.json
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\ExerciseTracker.Tests\bin\Release\netstandard1.4\ExerciseTracker.Tests.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\ExerciseTracker.Tests\bin\Release\netstandard1.4\ExerciseTracker.Tests.pdb
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\ExerciseTracker.Tests\obj\Release\netstandard1.4\ExerciseTracker.Tests.csprojResolveAssemblyReference.cache
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\ExerciseTracker.Tests\obj\Release\netstandard1.4\ExerciseTracker.Tests.csproj.CoreCompileInputs.cache
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\ExerciseTracker.Tests\obj\Release\netstandard1.4\ExerciseTracker.Tests.AssemblyInfo.cs
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\ExerciseTracker.Tests\obj\Release\netstandard1.4\ExerciseTracker.Tests.dll
+C:\Users\rforzisi\Documents\Test Projects\ExerciseTracker\Exercise tracker\ExerciseTracker.Tests\obj\Release\netstandard1.4\ExerciseTracker.Tests.pdb
