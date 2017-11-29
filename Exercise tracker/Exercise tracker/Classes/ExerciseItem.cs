@@ -12,7 +12,7 @@ namespace Exercise_tracker.Classes
         public event EventHandler DeleteExercise;
         public event EventHandler EditExericse;
         public ICommand MarkExerciseCompletedCommand { get { return new DelegateCommand(MarkExerciseCompleted); } }
-        
+        public ICommand CompleteExerciseOneTimeCommand { get { return new DelegateCommand(CompleteExerciseOneTime);} } //doesnt need to be a command. But makes things more uniform
         public ICommand DeleteThisExerciseCommand { get { return new DelegateCommand(DeleteThisExerciseItem); } }
         public ICommand EditThisExerciseCommand { get { return new DelegateCommand(EditThisExerciseItem); } }
 
@@ -139,6 +139,10 @@ namespace Exercise_tracker.Classes
             UpdateViews();
         }
 
+        private void CompleteExerciseOneTime()
+        {
+            TotalCompletedCount += 1; //not even sure if we are using this anywhere
+        }
 
 
         private void DeleteThisExerciseItem()

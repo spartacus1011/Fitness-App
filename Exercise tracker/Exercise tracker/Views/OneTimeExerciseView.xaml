@@ -15,9 +15,9 @@
         >
     <DockPanel>
         <TextBlock Text="Select an exercise and confirm to complete a one time exercise" Foreground="White" TextWrapping="Wrap" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
-        <ComboBox DockPanel.Dock="Top" Margin="10,10"></ComboBox>
+        <ComboBox DockPanel.Dock="Top" Margin="10,10"  ItemsSource="{Binding OneTimeAddComboboxItems}" SelectedItem="{Binding SelectedExercise}" SelectedValuePath="Value" DisplayMemberPath="Key" ></ComboBox>
         <Grid DockPanel.Dock="Bottom" >
-            <Button Content="Confirm" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="auto" Height="50" Margin="20,10" FontSize="20"></Button>
+            <Button Content="Confirm" Command="{Binding CloseDialogTrueCommand}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="auto" Height="50" Margin="20,10" FontSize="20"></Button>
             <Button Content="Cancel" IsCancel="True" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="auto" Height="50" Margin="20,10" FontSize="20"></Button>
         </Grid>
     </DockPanel>

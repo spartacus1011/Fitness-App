@@ -28,7 +28,6 @@ namespace Exercise_tracker.ViewModels
                 if (value.Key != selectedGraph.Key)
                 {
                     selectedGraph = value;
-                    //do something special here to show the graphs
 
                     if (selectedGraph.Key == "All Exercise Counts")
                     {
@@ -42,7 +41,7 @@ namespace Exercise_tracker.ViewModels
                 }
 
             }
-        } //Using a string is bad
+        } 
         private bool? dialogResult;
         
         private List<ExerciseItem> AllExerciseItems;

@@ -208,12 +208,13 @@ namespace Exercise_tracker.ViewModels
 
         private void ShowOneTimeExercisePageDialog()
         {
-            var dialogViewModel = new OneTimeExerciseViewModel();
+            var dialogViewModel = new OneTimeExerciseViewModel(AllExerciseItems);
 
             bool? success = dialogService.ShowDialog<OneTimeExerciseView>(this, dialogViewModel);
 
             if (success == true)
             {
+                OnMarkExerciseCompletedChanged(dialogViewModel.SelectedExercise.Value,null);
             }
         }
 
