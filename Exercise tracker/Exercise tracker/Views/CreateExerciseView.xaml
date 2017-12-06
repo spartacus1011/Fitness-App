@@ -53,6 +53,10 @@
             <ComboBox SelectedItem="{Binding SelectedDayOfTheMonth}" ItemsSource="{Binding DaysInThisMonth}" Width="100" HorizontalAlignment="Right"></ComboBox>
         </Grid>
         <Grid Margin="10,5">
+            <TextBlock Text="Muscle Group Worked" Foreground="White"/>
+            <ComboBox SelectedItem="{Binding SelectedMuscleGroup}" ItemsSource="{Binding MuscleGroupValues}" Width="100" HorizontalAlignment="Right"></ComboBox>
+        </Grid>
+        <Grid Margin="10,5">
             <CheckBox IsChecked="{Binding IsUsedInRoster}" Content="Add to Roster straight away" HorizontalAlignment="Center" Foreground="White" />
         </Grid>
 

@@ -35,7 +35,14 @@ namespace Exercise_tracker.Classes
         public bool IsUsingRestTime { get; set; }
         public ExerciseRestTimeEnum RestTime { get; set; } //make this a timespan 
         public bool IsUsedInRoster { get; set; }
-        public int TotalCompletedCount { get; set; } //this is the total amount of times this exercise has been done (To be replaced by a proper history thing)
+        public MuscleGroupEnum MuscleGroup { get; set; }
+        public int MuscleGroupId
+        {
+            get { return (int) this.MuscleGroup; }
+            set { MuscleGroup = (MuscleGroupEnum) value; }
+        }
+        public float Weight { get; set; }
+        public int TotalCompletedCount { get; set; } //this is the total amount of times this exercise has been done (To be replaced by a proper history thing). I think this has been replaced by gethistory.count or something
         public bool IsOneTimeExercise { get; set; } //use this to signify that it was a one time exercise. these guys probably wont be shown in the to do list rather a history list. Until history list is done, this will just add 1 to the total count
         public DateTime DueTime { get; set; }
         public bool OnTime { get { return DueTime.DayOfYear == DateTime.Now.DayOfYear; } }

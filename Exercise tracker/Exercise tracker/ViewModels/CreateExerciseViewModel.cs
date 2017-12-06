@@ -119,6 +119,17 @@ namespace Exercise_tracker.ViewModels
             }
         }
 
+        public IEnumerable<MuscleGroupEnum> MuscleGroupValues { get { return Enum.GetValues(typeof(MuscleGroupEnum)).Cast<MuscleGroupEnum>(); } }
+        public MuscleGroupEnum SelectedMuscleGroup
+        {
+            get { return itemToAdd.MuscleGroup; }
+            set
+            {
+                itemToAdd.MuscleGroup = value;
+                RaisePropertyChangedEvent("SelectedMuscleGroup");
+            }
+        }
+
         public bool IsMonthly { get { return itemToAdd.IsMonthlyRecurrence; } }
         public IEnumerable<int> DaysInThisMonth
         {
@@ -168,6 +179,7 @@ namespace Exercise_tracker.ViewModels
             RaisePropertyChangedEvent("IsUsedInRoster");
             RaisePropertyChangedEvent("IsWeekly");
             RaisePropertyChangedEvent("IsMonthly");
+            RaisePropertyChangedEvent("SelectedMuscleGroup");
         }
 
         private void CloseDialogTrue()

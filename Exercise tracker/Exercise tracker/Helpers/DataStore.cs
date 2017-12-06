@@ -43,8 +43,9 @@ namespace Exercise_tracker.Helpers
                 nameof(nameExerciseItem.RequiredSets) + ", ",
                 nameof(nameExerciseItem.RequiredSetsCount) + ", ",
                 nameof(nameExerciseItem.DueTime) + ", ", //stored as string in UTC time
-                nameof(nameExerciseItem.IsUsedInRoster) + "", //last one doesnt need a comma
-                //Make sure to add in all the others. Remember, there is alot
+                nameof(nameExerciseItem.IsUsedInRoster) + ", ", //last one doesnt need a comma
+                nameof(nameExerciseItem.MuscleGroupId) + ", ",
+                nameof(nameExerciseItem.Weight) + ""
             };
             foreach (var thing in exerciseTableDataList)
             {
@@ -60,8 +61,9 @@ namespace Exercise_tracker.Helpers
                 nameof(nameExerciseItem.RequiredSets) + " int, ",
                 nameof(nameExerciseItem.RequiredSetsCount) + " int, ",
                 nameof(nameExerciseItem.DueTime) + " string,", //stored as string in UTC time
-                nameof(nameExerciseItem.IsUsedInRoster) + " bool"  ,//last one doesnt need a comma
-                //Make sure to add in all the others. Remember, there is alot
+                nameof(nameExerciseItem.IsUsedInRoster) + " bool,",//last one doesnt need a comma
+                nameof(nameExerciseItem.MuscleGroupId) + " int,",
+                nameof(nameExerciseItem.Weight) + " float"
             };
             foreach (var thing in exerciseTableDefinitionList)
             {
@@ -146,6 +148,8 @@ namespace Exercise_tracker.Helpers
                 exercise.RequiredSetsCount,
                 exercise.DueTime.ToUniversalTime().ToString("O"),
                 exercise.IsUsedInRoster,
+                exercise.MuscleGroupId,
+                exercise.Weight,
                 
             };
 
@@ -165,6 +169,8 @@ namespace Exercise_tracker.Helpers
                 exercise.RequiredSetsCount,
                 exercise.DueTime.ToUniversalTime().ToString("O"),
                 exercise.IsUsedInRoster,
+                exercise.MuscleGroupId,
+                exercise.Weight,
             };
 
             DatabaseHelper.UpdateItem(connection, allExercisesTableName, allExercisesTableData, objectsToWrite);
@@ -212,20 +218,74 @@ namespace Exercise_tracker.Helpers
 
         public List<ExerciseItem> LoadAllExerciseItems()
         {
-            DataTable dt = DatabaseHelper.LoadItems(connection, allExercisesTableName, allExercisesTableData);
+            //Do version control here
+            DataTable dt = null;
 
-            List<ExerciseItem> loadedItems= (from rw in dt.AsEnumerable()
+            bool loop = true;
+
+            while (loop)
+            {
+                try
+                {
+                    dt = DatabaseHelper.LoadItems(connection, allExercisesTableName, allExercisesTableData);
+                    loop = false;
+                }
+                catch (SQLiteException ex)
+                {
+                    if (ex.Message.Contains("no such column: MuscleGroupId"))
+                    {
+                        DatabaseHelper.AddColumn(connection, allExercisesTableName, "MuscleGroupId int"); 
+                        continue; //try again with new column
+                    }
+                    else if (ex.Message.Contains("no such column: Weight"))
+                    {
+                        DatabaseHelper.AddColumn(connection, allExercisesTableName, "Weight float");
+                        continue; //try again with new column
+                    }
+                    else
+                    {
+                        throw new Exception("Error Loading database, this isnt a migration issue that we have handled");
+                    }
+                }
+            }
+
+
+            if(dt == null)
+                throw new Exception("Something has gone wrong in loading the database");
+
+            foreach (var row in dt.AsEnumerable()) //This loop could get nasty on long iterations. Keep an eye on it
+            {
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    if (row.IsNull(i))
+                    {
+                        //throw new Exception("One of the datasets are null. Need to manually edit to fix");
+                        System.Diagnostics.Debug.WriteLine(row[i] + " was null. Converting to 0");
+                        row[i] = 0; //0 is a very cool value because it can be many types. still keep an eye on it
+                    }
+                }
+            }
+
+            List<ExerciseItem> loadedItems = (from rw in dt.AsEnumerable()
                 select new ExerciseItem
                 {
                     GUIDID = Convert.ToString(rw[nameof(nameExerciseItem.GUIDID)]),
                     ExerciseName = Convert.ToString(rw[nameof(nameExerciseItem.ExerciseName)]),
                     ExerciseTypeId = Convert.ToInt32(rw[nameof(nameExerciseItem.ExerciseTypeId)]),
+                    RequiredReps = Convert.ToInt32(rw[nameof(nameExerciseItem.RequiredReps)]),
+                    RequiredTime = Convert.ToInt32(rw[nameof(nameExerciseItem.RequiredTime)]),
+                    RequiredSets = Convert.ToInt32(rw[nameof(nameExerciseItem.RequiredSets)]),
+                    RequiredSetsCount = Convert.ToInt32(rw[nameof(nameExerciseItem.RequiredSetsCount)]),
                     DueTime = Convert.ToDateTime(rw[nameof(nameExerciseItem.DueTime)]),
                     IsUsedInRoster = Convert.ToBoolean(rw[nameof(nameExerciseItem.IsUsedInRoster)]),
+                    MuscleGroupId = Convert.ToInt32(rw[nameof(nameExerciseItem.MuscleGroupId)]),
+                    Weight = Convert.ToSingle(rw[nameof(nameExerciseItem.Weight)]),
                 }).ToList();
 
             return loadedItems;
         }
+
+
 
         public List<ExerciseHistoryItem> LoadExerciseHistory(ExerciseItem exercise)
         {

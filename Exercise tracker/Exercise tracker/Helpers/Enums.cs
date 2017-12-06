@@ -31,4 +31,20 @@ namespace Exercise_tracker.Helpers
         Seconds90,
         Seconds120
     }
+
+    public enum MuscleGroupEnum
+    {
+        Biceps,
+        Triceps,
+        Forearms,
+        Chest,
+        Back,
+        Abs,
+        Calves,
+        Hamestrings,
+        Quads,
+        Cardio, //Lungs are a muscle group too
+        Other,
+    }
+
 }

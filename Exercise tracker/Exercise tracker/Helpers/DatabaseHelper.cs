@@ -65,6 +65,17 @@ namespace Exercise_tracker.Classes
             }
         }
 
+        public static void AddColumn(SQLiteConnection connection, string tableName, string columnDefinition)
+        {
+            using (SQLiteCommand command = new SQLiteCommand(connection))
+            {
+                string commandString = string.Format("alter table {0} add column {1}", tableName, columnDefinition);
+                command.CommandText = commandString;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
         public static void AddItem(SQLiteConnection connection, string tableName, string tableData, List<object> allItems)
         {
             //the order of the items in all items is important!!! it must match the order of things in table data

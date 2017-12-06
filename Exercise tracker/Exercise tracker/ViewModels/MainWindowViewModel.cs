@@ -95,6 +95,7 @@ namespace Exercise_tracker.ViewModels
         {
             try
             {
+                //Need to fix the data store to cope when there are new columns added to existing db
                 AllExerciseItems = dataStore.LoadAllExerciseItems();
 
                 foreach (ExerciseItem item in AllExerciseItems)
@@ -217,8 +218,6 @@ namespace Exercise_tracker.ViewModels
                 OnMarkExerciseCompletedChanged(dialogViewModel.SelectedExercise.Value,null);
             }
         }
-
-
         #endregion
 
 
