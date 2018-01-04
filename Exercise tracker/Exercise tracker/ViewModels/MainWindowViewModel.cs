@@ -218,6 +218,34 @@ namespace Exercise_tracker.ViewModels
                 OnMarkExerciseCompletedChanged(dialogViewModel.SelectedExercise.Value,null);
             }
         }
+
+        private void CreateWorkoutForYussuf() //NYI
+        {
+            //show a button that will cancel the workout routine
+
+            //Variables set up. These will need to be user input via a dialog
+            int numberOfExercises = 2;
+            MuscleGroupEnum muscleGroup = MuscleGroupEnum.Abs;
+            bool highRep = true; //this guy is for high reps low weight, or low reps high weight
+
+
+            List<ExerciseItem> exercisesByGroup = AllExerciseItems.Where(x => x.MuscleGroup == muscleGroup).ToList();
+
+            if(numberOfExercises > exercisesByGroup.Count)
+                throw new Exception("There are not enough exercises in the selected group to make a routine of the requested size"); //Handle this a bit better, possibly from within the dialog itself
+
+            Random rnd = new Random();
+
+            List<ExerciseItem> workoutExercises = exercisesByGroup.OrderBy(x => rnd.Next()).Take(numberOfExercises).ToList(); //this works, but also has the possiblity to get the same item twice, we dont really want that. or do we?
+
+            List<ExerciseItem> tempStoredExercises = ExerciseItemsToDo.ToList(); //this isnt a permanent solution as temporarily storing things like this means it wont get saved on app close which is rather frustrating. Best action would be to create a new table in the db to store these
+
+            //At this point we need to figure out the starting weights
+
+
+        }
+
+
         #endregion
 
 
@@ -228,15 +256,15 @@ namespace Exercise_tracker.ViewModels
             SaveExerciseList();
         }
 
-        void OnMarkExerciseCompletedChanged(object sender, EventArgs e)
+        private void OnMarkExerciseCompletedChanged(object sender, EventArgs e)
         {
             ExerciseItem ex = sender as ExerciseItem;
             dataStore.UpdateDueTime(ex);
-            dataStore.AddHistoryItem(new ExerciseHistoryItem(ex.GUIDID, ex.IsRepetitions, DateTime.Now));
+            dataStore.AddHistoryItem(new ExerciseHistoryItem(ex.GUIDID, ex.IsRepetitions, DateTime.Now, ex.RequiredReps, ex.RequiredTime, (int)ex.ExerciseTimeUnits));
             RebuildList();
         }
 
-        void OnDeleteExercise(object sender, EventArgs e)
+        private void OnDeleteExercise(object sender, EventArgs e)
         {
             ExerciseItem itemToDelete = sender as ExerciseItem;
             ExerciseItemsToDo.Remove(itemToDelete);
@@ -245,10 +273,10 @@ namespace Exercise_tracker.ViewModels
             RebuildList();
         }
 
-        void OnEditExercise(object sender, EventArgs e)
+        private void OnEditExercise(object sender, EventArgs e)
         {
             ExerciseItem itemToEdit = sender as ExerciseItem;
-
+            
             //This is a somewhat custom version of the create exercise window
             var dialogViewModel = new CreateExerciseViewModel();
             dialogViewModel.ItemToAdd = itemToEdit;
@@ -260,7 +288,8 @@ namespace Exercise_tracker.ViewModels
 
                 if (dialogViewModel.ItemToAdd.IsUsedInRoster)
                 {
-                    OnUpdateTimerTick(null, null);
+                    //OnUpdateTimerTick(null, null);
+                    RebuildList(); //have to rebuild list so that it updates the views
                 }
             }
         }

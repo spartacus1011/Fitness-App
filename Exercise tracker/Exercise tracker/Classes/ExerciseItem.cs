@@ -81,7 +81,7 @@ namespace Exercise_tracker.Classes
                         break;
                     case ExercisetypeEnum.NormalSets:
                     case ExercisetypeEnum.SingleReps:
-                        return RequiredReps.ToString();
+                        return RequiredReps + " Reps";
                 }
                 return "";
             }

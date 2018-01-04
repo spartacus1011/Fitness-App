@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:Exercise_tracker.Views"
         xmlns:viewModels="clr-namespace:Exercise_tracker.ViewModels"
         mc:Ignorable="d"
-        Title="CreateExerciseView" Height="300" Width="300"
+        Title="CreateExerciseView" Height="450" Width="300"
         md:DialogServiceViews.IsRegistered="True"
         d:DataContext="{d:DesignInstance {x:Type viewModels:CreateExerciseViewModel}}"
         Background="#FF1E1E1E"
@@ -60,7 +60,7 @@
             <CheckBox IsChecked="{Binding IsUsedInRoster}" Content="Add to Roster straight away" HorizontalAlignment="Center" Foreground="White" />
         </Grid>
 
-        <Grid>
+        <Grid >
             <Button Command="{Binding CloseDialogTrueCommand}" Content="Create" Width="60" Height="25" HorizontalAlignment="Right" Margin="25,15"></Button>
             <Button Content="Cancel" IsCancel="True" Width="60" Height="25" HorizontalAlignment="Left" Margin="25,15"></Button>
             <!-- no command binding needed and it closes automatically. MAAAAGIC-->

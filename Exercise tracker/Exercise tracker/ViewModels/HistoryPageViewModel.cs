@@ -97,7 +97,11 @@ namespace Exercise_tracker.ViewModels
             foreach (var his in allHistory)
             {
                 XLabels.Add(his.TimeCompleted.ToShortDateString());
-                GraphData[0].Values.Add(his.TimeCompleted.DayOfYear);
+
+                if(his.RepsDone != 0)
+                    GraphData[0].Values.Add(his.RepsDone);
+                else
+                    GraphData[0].Values.Add(his.TimeDone);
             }
 
             VisualUpdateGraph();

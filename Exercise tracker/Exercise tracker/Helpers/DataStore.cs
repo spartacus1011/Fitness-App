@@ -26,7 +26,7 @@ namespace Exercise_tracker.Helpers
 
         //dummy items for naming purposes
         private readonly ExerciseItem nameExerciseItem = new ExerciseItem();
-        private readonly ExerciseHistoryItem nameHistoryItem = new ExerciseHistoryItem("", false, DateTime.Now); 
+        private readonly ExerciseHistoryItem nameHistoryItem = new ExerciseHistoryItem("", false, DateTime.Now, 0,0,0); 
 
 
         public DataStore(string dbPath, bool fakeDB = false)
@@ -76,7 +76,10 @@ namespace Exercise_tracker.Helpers
             {
                 nameof(nameHistoryItem.ExerciseGUIDID) + ", ",
                 nameof(nameHistoryItem.IsRep) + ", ",
-                nameof(nameHistoryItem.TimeCompleted) + "",
+                nameof(nameHistoryItem.TimeCompleted) + ", ",
+                nameof(nameHistoryItem.RepsDone) + ", ",
+                nameof(nameHistoryItem.TimeDone) + ", ",
+                nameof(nameHistoryItem.ExerciseTimeUnitsId) + ""
             };
             foreach (var thing in exerciseHistoryTableDataList)
             {
@@ -86,7 +89,10 @@ namespace Exercise_tracker.Helpers
             {
                 nameof(nameHistoryItem.ExerciseGUIDID) + " string, ",
                 nameof(nameHistoryItem.IsRep) + " bool, ",
-                nameof(nameHistoryItem.TimeCompleted) + " string",
+                nameof(nameHistoryItem.TimeCompleted) + " string,",
+                nameof(nameHistoryItem.RepsDone) + " int,",
+                nameof(nameHistoryItem.TimeDone) + " int,",
+                nameof(nameHistoryItem.ExerciseTimeUnitsId) + " int",
             };
             foreach (var thing in exerciseHistoryTableDefinitionList)
             {
@@ -211,7 +217,10 @@ namespace Exercise_tracker.Helpers
             {
                 item.ExerciseGUIDID,
                 item.IsRep,
-                item.TimeCompleted.ToUniversalTime().ToString("O")
+                item.TimeCompleted.ToUniversalTime().ToString("O"),
+                item.RepsDone,
+                item.TimeDone,
+                item.ExerciseTimeUnitsId
             };
             DatabaseHelper.AddItem(connection, exerciseHistoryTableName, exerciseHistoryTableData, objectsToWrite);
         }
@@ -297,7 +306,10 @@ namespace Exercise_tracker.Helpers
                 select new ExerciseHistoryItem(
                     Convert.ToString(rw[nameof(nameHistoryItem.ExerciseGUIDID)]), 
                     Convert.ToBoolean(rw[nameof(nameHistoryItem.IsRep)]), 
-                    Convert.ToDateTime(rw[nameof(nameHistoryItem.TimeCompleted)]))
+                    Convert.ToDateTime(rw[nameof(nameHistoryItem.TimeCompleted)]),
+                    Convert.ToInt32(rw[nameof(nameHistoryItem.RepsDone)]),
+                    Convert.ToInt32(rw[nameof(nameHistoryItem.TimeDone)]),
+                    Convert.ToInt32(rw[nameof(nameHistoryItem.ExerciseTimeUnitsId)]))
                 ).ToList();
 
             return history;

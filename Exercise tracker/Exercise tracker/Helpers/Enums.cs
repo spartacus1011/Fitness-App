@@ -41,7 +41,7 @@ namespace Exercise_tracker.Helpers
         Back,
         Abs,
         Calves,
-        Hamestrings,
+        Hamstrings,
         Quads,
         Cardio, //Lungs are a muscle group too
         Other,
