@@ -241,7 +241,19 @@ namespace Exercise_tracker.ViewModels
             List<ExerciseItem> tempStoredExercises = ExerciseItemsToDo.ToList(); //this isnt a permanent solution as temporarily storing things like this means it wont get saved on app close which is rather frustrating. Best action would be to create a new table in the db to store these
 
             //At this point we need to figure out the starting weights
+            foreach(ExerciseItem ex in workoutExercises)
+            {
+                //show some dialog to get the starting weight
+                //for now just use the given weight as the starting weight.    
 
+            }
+
+            ExerciseItemsToDo.Clear(); //remove the old list. Its ok though, it should be stored ;)
+
+            for (int i = 0; i < numberOfExercises; i++)
+            {
+
+            }
 
         }
 

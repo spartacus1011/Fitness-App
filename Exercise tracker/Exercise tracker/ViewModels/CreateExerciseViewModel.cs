@@ -53,6 +53,18 @@ namespace Exercise_tracker.ViewModels
                 RaisePropertyChangedEvent("SetsCount");
             }
         }
+
+        public float Weight
+        {
+            get { return itemToAdd.Weight; }
+            set
+            {
+                itemToAdd.Weight = value;
+                itemToAdd.Weight = itemToAdd.Weight.Clamp(1, 500);
+                RaisePropertyChangedEvent("Weight");
+            }
+        }
+
         public bool IsUsingRestTime
         {
             get { return itemToAdd.IsUsingRestTime; }
@@ -161,6 +173,7 @@ namespace Exercise_tracker.ViewModels
             Guid newGUIDID = Guid.NewGuid();
             itemToAdd = new ExerciseItem(newGUIDID.ToString());
             IsUsedInRoster = true;
+            Weight = 10;
         }
 
         private void RaiseAllTheEvents()
@@ -180,6 +193,7 @@ namespace Exercise_tracker.ViewModels
             RaisePropertyChangedEvent("IsWeekly");
             RaisePropertyChangedEvent("IsMonthly");
             RaisePropertyChangedEvent("SelectedMuscleGroup");
+            RaisePropertyChangedEvent("Weight");
         }
 
         private void CloseDialogTrue()

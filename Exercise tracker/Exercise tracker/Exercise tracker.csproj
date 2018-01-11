@@ -110,6 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\Utilitys.cs" />
     <Compile Include="ViewModels\OneTimeExerciseViewModel.cs" />
     <Compile Include="Views\OneTimeExerciseView.xaml.cs">
       <DependentUpon>OneTimeExerciseView.xaml</DependentUpon>

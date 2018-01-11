@@ -38,6 +38,13 @@
             <TextBlock Text="Number of Sets" Foreground="White"/>
             <wpfTool:IntegerUpDown Value="{Binding SetsCount}" Width="50" HorizontalAlignment="Right"/>
         </Grid>
+        <Grid Margin="10,5">
+            <TextBlock Text="Weight" Foreground="White" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="(kgs)" Foreground="White" Width="30"/>
+                <wpfTool:IntegerUpDown Value="{Binding Weight}" Width="50" />
+            </StackPanel>
+        </Grid>
         <Grid Visibility="{Binding IsSets, Converter={StaticResource BoolToVis}}" Margin="10,5">
             <CheckBox IsChecked="{Binding IsUsingRestTime}" Content="Add Rest Time(Seconds)" Foreground="White"/>
             <ComboBox SelectedItem="{Binding RestTime}" ItemsSource="{Binding ExerciseRestTimeValues}" Visibility="{Binding IsUsingRestTime, Converter={StaticResource BoolToVis}}" Width="100" HorizontalAlignment="Right"/>
